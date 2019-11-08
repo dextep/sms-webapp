@@ -1,11 +1,19 @@
-import React from 'react';
+import React, {Component} from 'react';
 
-const Dashboard = () => {
-    return (
-        <div>
-            <h1>Dashboard Page</h1>
-        </div>
-    )
-}
+export class Dashboard extends Component {
+
+    logout = () => {
+        localStorage.removeItem('JwtToken');
+        this.props.history.push('/signIn');
+    };
+
+    render() {
+        return (
+            <div>
+                <h1>Dashboard Page</h1>
+            </div>
+        )
+    }
+};
 
 export default Dashboard;

@@ -1,31 +1,18 @@
-import React from 'react';
-import { Switch, Route } from 'react-router-dom';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
-import ValidatedLoginForm from './components/LoginForm'
-import Login from './components/LoginForm/index';
-import Dashboard from './components/Dashboard/index';
-import {setAuthToken} from "./helpers/setAuthToken";
+import {AllRoutes} from './components/AllRoutes'
 
-function App() {
+export class App extends Component {
 
+    render() {
+        return (
+            <div>
+                <AllRoutes/>
+            </div>
+        );
+    }
 
-    // if(localStorage.JwtToken){
-    //     setAuthToken(localStorage.JwtToken)
-    //     history.push('/dashboard');
-    // }
-
-  return (
-      <div className="app-routes">
-          <Switch>
-              <Route path="/login" component={Login} />
-              <Route path="/dashboard" component={Dashboard} />
-          </Switch>
-      </div>
-    // <div className="App">
-    //     <ValidatedLoginForm/>
-    // </div>
-  );
 }
 
 export default App;
+
