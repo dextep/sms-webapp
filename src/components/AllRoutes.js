@@ -9,7 +9,8 @@ import Navigationbar from './Navbar';
 import SignIn from './SignIn';
 import Dashboard from '../components/Dashboard';
 import SignUp from '../components/SignUp';
-import axios from "axios";
+import styles from './styles.css'
+import MapSidebar from "./MapSidebar";
 
 export class AllRoutes extends Component {
 
@@ -31,14 +32,7 @@ export class AllRoutes extends Component {
         const DefaultContainer = () => (
             <div>
                 <Navigationbar />
-                <div className="container">
-                    <div className="row">
-                        <div className="col-md-6 offset-md-3">
-                            {/*<Dashboard/>*/}
-                            <Route path="/" component={Dashboard} />
-                        </div>
-                    </div>
-                </div>
+                <Route path="/" component={Dashboard} />
             </div>
         );
 

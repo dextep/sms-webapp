@@ -1,0 +1,9 @@
+.leaflet-container {
+    position: relative;
+    height: 500px;
+    width: 100%;
+}
+
+#wrapper {
+    position: relative;
+}

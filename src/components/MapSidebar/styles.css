@@ -1,0 +1,8 @@
+#mapSidebar{
+    z-index: 9999;
+    position: absolute;
+    top: 130px;
+    right: 10px;
+    width: 200px;
+    /*max-width: 300px*/
+}

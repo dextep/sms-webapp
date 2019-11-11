@@ -8,11 +8,14 @@
     "formik": "^2.0.3",
     "history": "^4.10.1",
     "jsonwebtoken": "^8.5.1",
+    "leaflet": "^1.5.1",
     "react": "^16.11.0",
     "react-bootstrap": "^1.0.0-beta.14",
     "react-dom": "^16.11.0",
+    "react-leaflet": "^2.5.0",
     "react-router-dom": "latest",
     "react-scripts": "3.2.0",
+    "react-sidebar": "^3.0.2",
     "yup": "^0.27.0"
   },
   "scripts": {

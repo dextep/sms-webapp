@@ -1,16 +1,15 @@
 import React, {Component} from 'react';
+import {LeafletMap} from '../LeafletMap'
+import MapSidebar from "../MapSidebar";
+import Navigationbar from "../Navbar";
 
 export class Dashboard extends Component {
-
-    logout = () => {
-        localStorage.removeItem('JwtToken');
-        this.props.history.push('/signIn');
-    };
 
     render() {
         return (
             <div>
                 <h1>Dashboard Page</h1>
+                <LeafletMap/>
             </div>
         )
     }
