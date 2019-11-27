@@ -1,5 +1,5 @@
 import React from 'react';
-import './style.css'
+import './styles.css'
 import { Card, Button, CardTitle, CardText, Form, FormGroup, Label, Input } from 'react-bootstrap';
 
 const EventCard = (props) => {
@@ -9,7 +9,7 @@ const EventCard = (props) => {
                 <Card.Title>{props.event.type}</Card.Title>
                 <Card.Subtitle>{props.event.experience}</Card.Subtitle>
                 <Card.Text>{props.event.description}</Card.Text>
-                <Button className="float-right" variant="danger" clasonClick={props.closeCard}>Close</Button>
+                <Button className="float-right" variant="danger" onClick={props.closeCard}>Close</Button>
             </Card.Body>
         </Card>
     );

@@ -74,7 +74,7 @@ class SignUp extends Component {
                             mobileNr)
                             .then( response => {
                                 console.log(response.data)
-                                // this.props.history.push( "/signIn");
+                                this.props.history.push( "/signIn");
                             })
                             .catch( error => {
                                 setSubmitting(false);

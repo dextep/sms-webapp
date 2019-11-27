@@ -1,0 +1,13 @@
+.eventFormInfo {
+    z-index: 999;
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    right: 5px;
+    width: 300px;
+    /*max-width: 300px*/
+}
+
+textarea {
+    resize: none;
+}

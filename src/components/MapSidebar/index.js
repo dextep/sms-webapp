@@ -1,34 +1,121 @@
-import React, {Component} from "react";
-import Sidebar from "react-sidebar";
+import React, {Component} from 'react';
 import './styles.css'
+import { format } from 'date-fns'
+import {ErrorMessage, Field, Form, Formik} from "formik";
+import * as Yup from "yup";
+import axios from "axios";
+import { history} from "../../helpers/history";
 
-class MapSidebar extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            sidebarOpen: true
-        };
-        this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
-    }
-
-    onSetSidebarOpen(open) {
-        this.setState({ sidebarOpen: open });
-    }
+export default class MapSidebar extends Component {
 
     render() {
+        console.log("this.props.eventState "+this.props.eventState);
+        console.log("this.props.location.lat "+this.props.location);
+        let d = new Date();
+        let year = d.getFullYear();
+        let month = d.getMonth();
+        let day = d.getDate();
+        let minY = new Date(year, month, day)
+        let maxY = new Date(year + 1, month, day)
         return (
-            <Sidebar id="mapSidebar"
-                sidebar={<b>Sidebar content</b>}
-                open={this.state.sidebarOpen}
-                onSetOpen={this.onSetSidebarOpen}
-                styles={{ sidebar: { background: "white" } }}
-            >
-                <button onClick={() => this.onSetSidebarOpen(true)}>
-                    Open sidebar
-                </button>
-            </Sidebar>
-        );
-    }
-}
+            <div id="sidebar">
+                <div className="container">
+                    <br/>
+                    <h5>Adding Event</h5>
+                    <Formik
+                        initialValues={{
+                            expDate: `${format(new Date(), "yyyy-MM-dd'T'HH:mm")}`,
+                            type: 'Walking 🚶🏻‍♀️',
+                            description: '',
+                        }}
+                        validationSchema={Yup.object().shape({
+                            expDate: Yup
+                                .date()
+                                .max(maxY)
+                                .min(minY)
+                                .required('expDate is required'),
+                        })}
+                        onSubmit={({expDate, type, description, seatsNumber}, {setStatus, setSubmitting}) => {
+                            setStatus();
+                            const data = JSON.stringify({
+                                experience: expDate,
+                                type: type,
+                                description: description,
+                                seatsNumber: seatsNumber,
+                                latitude: this.props.location.lat,
+                                longitude: this.props.location.lng
+                            });
+                            axios.post('http://localhost:8080/api/v1/event', data)
+                                .then( response => {
+                                    this.props.disablePin();
+                                    console.log("response")
+                                    console.log(response)
+                                    history.push( "/");
+                                })
+                                .catch( error => {
+                                    setSubmitting(false);
+                                    setStatus(error.toString())
+                                });
+                        }}
+                        render={({errors, status, touched, isSubmitting}) => (
+                            <Form>
+                                <div className="form-group">
+                                    <label htmlFor="expDate">When:</label>
+                                    <Field name="expDate" type="datetime-local"
+                                           className={'form-control' + (errors.expDate && touched.expDate ? ' is-invalid' : '')}/>
+                                    <ErrorMessage name="expDate" component="div" className="invalid-feedback"/>
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="type">Type:</label>
+                                    <Field name="type" as="select"
+                                           className={'form-control' + (errors.type && touched.type ? ' is-invalid' : '')}>
+                                        <option value="Walking 🚶🏻‍♀️">Walking</option>
+                                        <option value="Running 🏃🏼‍♂️">Running</option>
+                                        <option value="Cycling 🚴🏻‍♀️">Cycling</option>
+                                        <option value="Swimming 🏊🏼‍♂️">Swimming</option>
+                                    </Field>
+                                    <ErrorMessage name="type" component="div" className="invalid-feedback"/>
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="type">Number of seats:</label>
+                                    <Field name="seatsNumber" as="select"
+                                           className={'form-control' + (errors.seatsNumber && touched.seatsNumber ? ' is-invalid' : '')}>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                    </Field>
+                                    <ErrorMessage name="seatsNumber" component="div" className="invalid-feedback"/>
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="description">Description:</label>
+                                    <Field name="description" component="textarea" rows="3"
+                                           className={'form-control' + (errors.description && touched.description ? ' is-invalid' : '')}/>
+                                    <ErrorMessage name="description" component="div" className="invalid-feedback"/>
+                                </div>
+                                <div className="form-group">
+                                    <button type="submit" className="btn btn-success" disabled={isSubmitting}>Add
+                                    </button>
+                                    <button className="btn btn-danger float-right" >Close
+                                    </button>
+                                </div>
+                                {status &&
+                                <div className={'alert alert-danger'}>{status}</div>
+                                }
+                            </Form>
+                        )}
 
-export default MapSidebar;
+                    />
+                </div>
+            </div>
+        );
+    };
+}

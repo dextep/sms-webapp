@@ -38,16 +38,21 @@ export function getLocation() {
     });
 }
 
-export function andEvent(data) {
-    return axios.post(routes.event, JSON.stringify(data))
+export function addEvent(data) {
+    return axios.post(routes.event, data)
 }
 
 export function getEvents () {
-    return fetch(`${routes.event}`)
-        .then(res => res.json())
+    return axios.get(`${routes.event}`)
+        .then(res => res.data)
         .then(events => {
+            return events;
+            /*
             const eventSameLocation = {};
             return events.reduce((all, event) => {
+
+                console.log("user id");
+                console.log(event.id);
                 const key = `${event.latitude.toFixed(3)}${event.longitude.toFixed(3)}`;
                 if (eventSameLocation[key]) {
                     eventSameLocation[key].otherEvents = eventSameLocation[key].otherEvents || [];
@@ -58,8 +63,30 @@ export function getEvents () {
                 }
                 return all;
             }, []);
+            */
         });
 };
+
+
+// if(localStorage.getItem('JwtToken')){
+//     axios.get(`${routes.profile}`)
+//         .then(response => {
+//             localStorage.setItem('UserData', JSON.stringify(response.data) );
+//         })
+//         .catch( error => {
+//             return Promise.reject(error)
+//         })
+// }
+export function setUserData() {
+    return axios.get(`${routes.profile}`)
+        .then(response => {
+            localStorage.setItem('UserData', JSON.stringify(response.data) );
+        })
+        .catch( error => {
+            console.log(error)
+            return error;
+        })
+}
 
 export function getEvent (id) {
     return axios.get(`${routes.event}/${id}`)

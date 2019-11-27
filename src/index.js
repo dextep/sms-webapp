@@ -2,8 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary'
 import * as serviceWorker from './serviceWorker';
-import interceptor from './helpers/interceptor'
+import interceptor from "./helpers/interceptor";
 
 interceptor();
 ReactDOM.render(<App />, document.getElementById('root'));

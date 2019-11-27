@@ -4,6 +4,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import { withRouter } from 'react-router-dom';
 import { Navbar, NavItem, NavDropdown, MenuItem, Nav } from 'react-bootstrap';
+import {setUserData} from "../../services/api";
+import * as routes from "../../helpers/routes";
 
 class Navigationbar extends Component {
     constructor() {
@@ -11,24 +13,32 @@ class Navigationbar extends Component {
         this.state = {
             firstName: "",
             lastName: ""
-        }
+        };
     };
 
     componentDidMount() {
-        axios.get('http://localhost:8080/profile')
-            .then( response => {
-                console.log(response)
-                this.setState({
-                    firstName: response.data.firstName,
-                    lastName: response.data.lastName
-                })
+        setUserData()
+            .then( () => this.setUserTitle())
+            .catch( () => this.logout())
+    }
+
+    setUserTitle = () => {
+        if(localStorage.getItem("UserData") === null){
+            this.logout();
+        }else{
+            const userData = JSON.parse(localStorage.getItem("UserData"));
+            this.setState({
+                firstName: userData.firstName,
+                lastName: userData.lastName
             })
+        }
     }
 
     logout = () => {
         const { history } = this.props;
         if(history)
         {
+            localStorage.removeItem('UserData');
             localStorage.removeItem('JwtToken');
             history.push("/")
         }
@@ -37,7 +47,7 @@ class Navigationbar extends Component {
     render() {
         return (
             <Navbar bg="dark" variant="dark" expand="lg" >
-                <Navbar.Brand>Navbar with text</Navbar.Brand>
+                <Navbar.Brand>Event manager system 🏃🏼‍♂️</Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
                     <NavDropdown alignRight id="nav-dropdown" title={'Signed in as: '+this.state.firstName+' '+this.state.lastName}>

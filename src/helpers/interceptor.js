@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {history} from "./history";
+import * as routes from "./routes";
 
 function interceptor (){
 
@@ -24,12 +24,14 @@ function interceptor (){
             return response
         },
         (error) => {
-            // token expired
-            if (error.response.status === 401) {
-                localStorage.removeItem('JwtToken');
-                history.push("/signIn");
-                window.location.reload(true);
-            }
+
+            // return error
+            // // token expired
+            // if (error.response.status === 401) {
+            //     localStorage.removeItem('JwtToken');
+            //     history.push("/signIn");
+            //     window.location.reload(true);
+            // }
             return Promise.reject(error)
         }
     )

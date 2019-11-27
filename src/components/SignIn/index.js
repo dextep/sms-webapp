@@ -3,8 +3,6 @@ import './styles.css';
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { login } from '../../services/authenticationServices'
 import * as Yup from "yup"
-import SignUp from "../SignUp";
-// import { history} from "../../helpers/history";
 
 class SignIn extends Component {
     constructor(props) {
@@ -34,7 +32,7 @@ class SignIn extends Component {
                         setStatus();
                         login(email, password)
                             .then( response => {
-                                const token = response.data.JwtToken
+                                const token = response.data.JwtToken;
                                 localStorage.setItem('JwtToken', token );
                                 this.props.history.push( "/");
                             })
