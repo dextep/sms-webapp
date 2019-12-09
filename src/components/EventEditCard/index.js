@@ -1,19 +1,21 @@
 import React from 'react';
 import './styles.css'
 import { Card, Button, CardTitle, CardText, Form, FormGroup, Label, Input } from 'react-bootstrap';
-import { format, differenceInMilliseconds } from 'date-fns'
 import Timer from "react-compound-timer";
+import {differenceInMilliseconds, format} from "date-fns";
 
-const EventCard = (props) => {
+const EventEditCard = (props) => {
     let initTime = 0;
     const dif = differenceInMilliseconds(new Date(`${props.event.experience}`), new Date());
     if( dif > 0 )
         initTime = dif;
-console.log("sda")
+
+    console.log("props.event")
+    console.log(props.event)
     return (
         <Card className="eventFormInfo">
             <Card.Body>
-                <Card.Title>{props.event.user.fullName}</Card.Title>
+                <Card.Title>You'r event.</Card.Title>
                 <Card.Title>{props.event.type}</Card.Title><br/>
                 <Card.Text>
                     <Timer
@@ -34,29 +36,12 @@ console.log("sda")
                     {props.event.seatsNumber}<br/>
                     {props.event.type}<br/>
                 </Card.Text>
-                <Button className="float-left" variant="success" onClick={props.closeCard}>Join</Button>
+                <Button className="float-left" variant="success" onClick={props.closeCard}>Save</Button>
+                <Button variant="danger" onClick={ () => { props.deleteEvent(props.event.id ) } }>Delete</Button>
                 <Button className="float-right" variant="secondary" onClick={props.closeCard}>Close</Button>
             </Card.Body>
         </Card>
     );
 };
-// creationDate: "2019-12-06T18:46:17.599+0000"
-// ​
-// description: ""
-// ​
-// experience: "2019-12-06T19:46:00.000+0000"
-// ​
-// id: 5
-// ​
-// latitude: 50.021265596562145
-// ​
-// longitude: 19.90353584289551
-// ​
-// partner: Array []
-// ​
-// seatsNumber: 0
-// ​
-// status: false
-// ​
-// type: "Cycling 🚴🏻‍♀️"
-export default EventCard;
+
+export default EventEditCard;

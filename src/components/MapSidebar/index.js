@@ -7,10 +7,7 @@ import axios from "axios";
 import { history} from "../../helpers/history";
 
 export default class MapSidebar extends Component {
-
     render() {
-        console.log("this.props.eventState "+this.props.eventState);
-        console.log("this.props.location.lat "+this.props.location);
         let d = new Date();
         let year = d.getFullYear();
         let month = d.getMonth();
@@ -24,7 +21,8 @@ export default class MapSidebar extends Component {
                     <h5>Adding Event</h5>
                     <Formik
                         initialValues={{
-                            expDate: `${format(new Date(), "yyyy-MM-dd'T'HH:mm")}`,
+                            expTime: format(d.setMinutes( d.getMinutes() + 2 ), "HH:mm"),
+                            expDate: format(new Date(), "yyyy-MM-dd"),
                             type: 'Walking 🚶🏻‍♀️',
                             description: '',
                         }}
@@ -35,10 +33,10 @@ export default class MapSidebar extends Component {
                                 .min(minY)
                                 .required('expDate is required'),
                         })}
-                        onSubmit={({expDate, type, description, seatsNumber}, {setStatus, setSubmitting}) => {
+                        onSubmit={({expDate, expTime, type, description, seatsNumber}, {setStatus, setSubmitting}) => {
                             setStatus();
                             const data = JSON.stringify({
-                                experience: expDate,
+                                experience: new Date(expDate+' '+expTime),
                                 type: type,
                                 description: description,
                                 seatsNumber: seatsNumber,
@@ -61,8 +59,8 @@ export default class MapSidebar extends Component {
                             <Form>
                                 <div className="form-group">
                                     <label htmlFor="expDate">When:</label>
-                                    <Field name="expDate" type="datetime-local"
-                                           className={'form-control' + (errors.expDate && touched.expDate ? ' is-invalid' : '')}/>
+                                    <Field name="expTime" type="time" style={{width: "40%",display: "inline-block", margin: "0"}} className={'form-control' + (errors.expTime && touched.expTime ? ' is-invalid' : '')} />
+                                    <Field name="expDate" type="date" style={{width: "60%",display: "inline-block", margin: "0"}} className={'form-control' + (errors.expDate && touched.expDate ? ' is-invalid' : '')} />
                                     <ErrorMessage name="expDate" component="div" className="invalid-feedback"/>
                                 </div>
                                 <div className="form-group">
@@ -112,7 +110,6 @@ export default class MapSidebar extends Component {
                                 }
                             </Form>
                         )}
-
                     />
                 </div>
             </div>

@@ -2,11 +2,12 @@ import React, {Component, createRef} from 'react';
 import './styles.css'
 import L from 'leaflet';
 import { Map, Marker, Popup, TileLayer, Tooltip, ZoomControl, AttributionControl } from 'react-leaflet'
-import {getLocation, getEvents, getEvent} from '../../services/api'
+import {getLocation, getEvents, getEvent, setUserData} from '../../services/api'
 import * as routes from "../../helpers/routes";
 import userLocation from "../../noun_Location_1044413.svg";
 import eventLocation from "../../event_location.svg";
 import EventCard from "../EventCard/index";
+import EventEditCard from "../EventEditCard/index";
 import Control from 'react-leaflet-control';
 import AddEventCard from '../addEventCard'
 import {Button, ButtonGroup, Image} from 'react-bootstrap'
@@ -14,7 +15,12 @@ import {Card} from "react-bootstrap";
 import MapSidebar from "../MapSidebar";
 import Sidebar from "react-sidebar";
 import { MdMyLocation } from 'react-icons/md';
-
+import { css } from '@emotion/core';
+// First way to import
+import { BeatLoader } from 'react-spinners';
+import axios from "axios";
+import {history} from "../../helpers/history";
+// Another way to import. This is recommended to reduce bundle size
 const userLocationIcon = L.icon({
     iconUrl: userLocation,
     iconSize: [40, 82]
@@ -32,17 +38,15 @@ export class LeafletMap extends Component {
                 lat: 50.505,
                 lng: 10.09,
             },
+            loading: false,
             haveUsersLocation: false,
             showEvent: false,
+            showEventEditCard: false,
+            addEvent: false,
             zoom: 3,
             events: [],
             userEvents: [],
-            event: {
-                type: "",
-                description: "",
-                experience: "",
-            },
-            addEvent: false,
+            event: {},
             marker: null,
             user: {}
         };
@@ -59,10 +63,23 @@ export class LeafletMap extends Component {
                     zoom: 17
                 });
             });
-        this.setState({
-            user: JSON.parse(localStorage.getItem("UserData"))
-        })
-        this.loadEventPins();
+
+        if(localStorage.getItem("UserData") == null) {
+            setUserData().then( () => {
+                this.setState({
+                    user: JSON.parse(localStorage.getItem("UserData"))
+                }, () => {
+                    this.loadEventPins();
+                })
+            })
+        }else{
+            this.setState({
+                user: JSON.parse(localStorage.getItem("UserData"))
+            }, () => {
+                this.loadEventPins();
+            })
+        }
+
     }
 
     loadEventPins = () => {
@@ -71,18 +88,12 @@ export class LeafletMap extends Component {
         getEvents()
             .then( events => {
                 events.map(event => {
-                    console.log("longitude: "+event.latitude)
-                    console.log("longitude: "+event.longitude)
-                    console.log("user id: "+event.user.id)
-                    console.log(this.state.user)
-
                     if(event.user.id === this.state.user.id){
                         userEvents.push(event)
                     }else{
                         anotherEvents.push(event)
                     }
                 })
-
                 this.setState({
                     userEvents: userEvents,
                     events: anotherEvents
@@ -91,42 +102,64 @@ export class LeafletMap extends Component {
     }
 
 
+    closeCards = () => {
+        this.setState({
+            event: {},
+            addEvent: false,
+            haveUsersLocation: false,
+            showEvent: false,
+            showEventEditCard: false,
+        })
+    }
+
     findPin = () => {
-        const marker = this.myMapRef.current
-        marker.leafletElement.flyTo(this.state.location, 18)
+        this.myMapRef.current.leafletElement.flyTo(this.state.location, 16)
     }
 
     resetPin = () => {
         getLocation()
             .then(location => {
-                this.myMapRef.current.leafletElement.flyTo(location, 18)
+                this.myMapRef.current.leafletElement.flyTo(location, 16)
                 this.setState({
                     location
                 });
             });
     }
+
     resetLocation = () => {
-        const marker = this.myMapRef.current
         getLocation()
             .then(location => {
-                marker.leafletElement.flyTo(location, 18)
+                this.myMapRef.current.leafletElement.flyTo(location, 17)
             });
     }
 
     openCard = (id) => {
-        this.setState({
-            showEvent: true
-        });
-        getEvent(id)
-            .then(event => {
-                this.setState({
-                    event,
-                });
-            })
+        if (this.state.event.id !== id) {
+            this.closeCards();
+            getEvent(id)
+                .then(event => {
+                    this.setState({
+                        event,
+                        showEvent: true
+                    });
+                })
+        }
+    }
+
+    openEventEditCard = (id) => {
+        if (this.state.event.id !== id) {
+            this.closeCards();
+            getEvent(id)
+                .then(event => {
+                    this.setState({
+                        event,
+                        showEventEditCard: true
+                    });
+                })
+        }
     }
 
     updatePosition = () => {
-        console.log(this.myPinRef.current.leafletElement.getLatLng())
         this.setState({
             location: this.myPinRef.current.leafletElement.getLatLng(),
         })
@@ -141,12 +174,11 @@ export class LeafletMap extends Component {
     }
 
     addEvent = () => {
+        this.closeCards();
         if(!this.state.addEvent){
             this.setState({
                 addEvent: true
             })
-        }else{
-            alert("You are already adding an event.")
         }
     }
 
@@ -157,20 +189,46 @@ export class LeafletMap extends Component {
         });
     }
 
-    closeCard = () => {
-        this.setState({
-            showEvent: false
-        });
+    deleteEvent = (id) => {
+        axios.delete(`http://localhost:8080/api/v1/event/${id}`)
+            .then( response => {
+                console.log(response)
+                this.closeCards();
+                this.loadEventPins();
+            })
+            .catch( error => {
+                console.log(error)
+            });
     }
 
     render () {
+        const override = css`
+            z-index: 999;
+            position: absolute;
+            top: 50%;
+            right: 50%;
+        `;
         const position = [this.state.location.lat, this.state.location.lng];
         return (
             <div id="wrapper">
+                <BeatLoader
+                    css={override}
+                    sizeUnit={"px"}
+                    size={15}
+                    loading={this.state.loading}
+                />
                 {
                     this.state.showEvent ?
                         <EventCard
-                            closeCard={this.closeCard}
+                            closeCard={this.closeCards}
+                            event={this.state.event}
+                        /> : ""
+                }
+                {
+                    this.state.showEventEditCard ?
+                        <EventEditCard
+                            closeCard={this.closeCards}
+                            deleteEvent={this.deleteEvent}
                             event={this.state.event}
                         /> : ""
                 }
@@ -227,7 +285,7 @@ export class LeafletMap extends Component {
                     {
                         this.state.userEvents.map(event => (
                             <Marker
-                                onClick={() => this.openCard(event.id)}
+                                onClick={() => this.openEventEditCard(event.id)}
                                 icon={userLocationIcon}
                                 key={event.id}
                                 position={[event.latitude, event.longitude]}
@@ -241,7 +299,7 @@ export class LeafletMap extends Component {
                                 {/*        </p>) : ''*/}
                                 {/*    }*/}
                                 {/*</Popup>*/}
-                                <Tooltip direction='right' offset={[-10, 0]} opacity={1} permanent>
+                                <Tooltip direction='right' offset={[+5, -10]} opacity={1} permanent>
                                     <span>{event.type}</span>
                                 </Tooltip>
                             </Marker>
@@ -268,8 +326,7 @@ export class LeafletMap extends Component {
                     <AttributionControl position="bottomleft"/>
                     <Control position="topleft" >
                         <ButtonGroup vertical size={'sm'}>
-                            <Button xs={6} md={4}><MdMyLocation onClick={ () => this.resetLocation()}/></Button>
-                            {/*<Button onClick={ () => this.resetLocation()}><h3><FaLocationArrow/></h3>Reset View</Button>*/}
+                            <Button onClick={ () => this.resetLocation()} xs={6} md={4}><MdMyLocation/></Button>
                             <Button onClick={ () => this.findPin()}>Find Pin</Button>
                             <Button onClick={ () => this.resetPin()}>Reset Pin</Button>
                             <Button onClick={ () => this.addEvent()}>Add Event</Button>

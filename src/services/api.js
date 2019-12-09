@@ -80,9 +80,9 @@ export function getEvents () {
 export function setUserData() {
     return axios.get(`${routes.profile}`)
         .then(response => {
-            localStorage.setItem('UserData', JSON.stringify(response.data) );
+            localStorage.setItem('UserData', JSON.stringify(response.data));
         })
-        .catch( error => {
+        .catch(error => {
             console.log(error)
             return error;
         })
@@ -91,10 +91,6 @@ export function setUserData() {
 export function getEvent (id) {
     return axios.get(`${routes.event}/${id}`)
         .then(response => {
-            return {
-                type: response.data.type,
-                description: response.data.description,
-                experience: response.data.experience
-            }
+            return response.data;
         })
 };

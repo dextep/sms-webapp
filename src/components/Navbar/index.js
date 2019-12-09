@@ -17,21 +17,21 @@ class Navigationbar extends Component {
     };
 
     componentDidMount() {
-        setUserData()
-            .then( () => this.setUserTitle())
-            .catch( () => this.logout())
+        if(localStorage.getItem("UserData") === null) {
+            setUserData()
+                .then(() => this.setUserTitle())
+                .catch(() => this.logout())
+        }else{
+            this.setUserTitle()
+        }
     }
 
     setUserTitle = () => {
-        if(localStorage.getItem("UserData") === null){
-            this.logout();
-        }else{
-            const userData = JSON.parse(localStorage.getItem("UserData"));
-            this.setState({
-                firstName: userData.firstName,
-                lastName: userData.lastName
-            })
-        }
+        const userData = JSON.parse(localStorage.getItem("UserData"));
+        this.setState({
+            firstName: userData.firstName,
+            lastName: userData.lastName
+        })
     }
 
     logout = () => {
