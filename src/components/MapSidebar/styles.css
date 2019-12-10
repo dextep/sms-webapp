@@ -12,3 +12,15 @@
     transition: 0.3s;
     border-radius: 5px;
 }
+
+.bottom-buttons {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    width: 100%;
+    padding: 0px 30px 40px 30px;
+}
+
+button {
+    width: 75px;
+}

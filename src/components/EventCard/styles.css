@@ -7,3 +7,49 @@
     width: 300px;
     /*max-width: 300px*/
 }
+
+.leaflet-container {
+    position: relative;
+    height: 600px;
+    width: 100%;
+}
+
+#wrapper {
+    position: relative;
+    display: flex;
+}
+.Countdown{
+    margin: 0px auto;
+    padding-bottom: 5px;
+    text-align: center;
+}
+
+.Countdown-col{
+    display: inline-block;
+}
+
+.Countdown-col-element{
+    display: inline-block;
+    margin: 0 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.Countdown-col-element strong{
+    text-align: center;
+    font-size: 15px;
+    width: 30px;
+    height: 18px;
+}
+
+.bottom-buttons {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    width: 100%;
+    padding: 0px 30px 40px 30px;
+}
+
+button {
+    width: 75px;
+}

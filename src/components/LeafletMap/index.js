@@ -20,6 +20,7 @@ import { css } from '@emotion/core';
 import { BeatLoader } from 'react-spinners';
 import axios from "axios";
 import {history} from "../../helpers/history";
+import {format} from "date-fns";
 // Another way to import. This is recommended to reduce bundle size
 const userLocationIcon = L.icon({
     iconUrl: userLocation,
@@ -189,6 +190,16 @@ export class LeafletMap extends Component {
         });
     }
 
+    joinEvent = (id) => {
+        axios.post(`http://localhost:8080/api/v1/event/join/${id}`)
+            .then( response => {
+                console.log(response)
+            })
+            .catch( error => {
+                console.log(error)
+            });
+    }
+
     deleteEvent = (id) => {
         axios.delete(`http://localhost:8080/api/v1/event/${id}`)
             .then( response => {
@@ -221,6 +232,8 @@ export class LeafletMap extends Component {
                     this.state.showEvent ?
                         <EventCard
                             closeCard={this.closeCards}
+                            reloadPins={this.loadEventPins}
+                            joinEvent={this.joinEvent}
                             event={this.state.event}
                         /> : ""
                 }
@@ -229,6 +242,7 @@ export class LeafletMap extends Component {
                         <EventEditCard
                             closeCard={this.closeCards}
                             deleteEvent={this.deleteEvent}
+                            reloadPins={this.loadEventPins}
                             event={this.state.event}
                         /> : ""
                 }
@@ -241,7 +255,7 @@ export class LeafletMap extends Component {
                 {/*}*/}
                 {
                     this.state.addEvent ?
-                        <MapSidebar location={this.state.location} disablePin={this.disablePin}/>
+                        <MapSidebar location={this.state.location} disablePin={this.disablePin} closeCard={this.closeCards}/>
                         : ""
                 }
                 {/*{*/}
@@ -277,7 +291,10 @@ export class LeafletMap extends Component {
                                 {/*    }*/}
                                 {/*</Popup>*/}
                                 <Tooltip direction='right' offset={[-10, 0]} opacity={1} permanent>
-                                    <span>{event.type}</span>
+                                    <span>
+                                        {format(new Date(`${event.experience}`),"dd.MM.yyyy HH:mm")}<br/>
+                                        {event.type}
+                                    </span>
                                 </Tooltip>
                             </Marker>
                         ))
@@ -299,9 +316,6 @@ export class LeafletMap extends Component {
                                 {/*        </p>) : ''*/}
                                 {/*    }*/}
                                 {/*</Popup>*/}
-                                <Tooltip direction='right' offset={[+5, -10]} opacity={1} permanent>
-                                    <span>{event.type}</span>
-                                </Tooltip>
                             </Marker>
                         ))
                     }

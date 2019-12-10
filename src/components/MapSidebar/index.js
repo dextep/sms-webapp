@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import './styles.css'
-import { format } from 'date-fns'
+import { format, isAfter, parse } from 'date-fns'
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { history} from "../../helpers/history";
+import {Button} from "react-bootstrap";
 
 export default class MapSidebar extends Component {
     render() {
@@ -25,24 +26,33 @@ export default class MapSidebar extends Component {
                             expDate: format(new Date(), "yyyy-MM-dd"),
                             type: 'Walking 🚶🏻‍♀️',
                             description: '',
+                            availability: 1
                         }}
                         validationSchema={Yup.object().shape({
                             expDate: Yup
                                 .date()
-                                .max(maxY)
-                                .min(minY)
-                                .required('expDate is required'),
+                                .max(maxY, 'Event date should be earlier.')
+                                .min(minY, 'Event date should be later.')
+                                .required('Event date is required.'),
+                            expTime: Yup
+                                .string()
+                                .required("Event time is required.")
+                                .test("is-greater", "Event time should be later.", function(value) {
+                                    return isAfter(parse(value, "HH:mm", new Date()), parse(format(new Date(), "HH:mm"),"HH:mm", new Date()));
+                                })
                         })}
-                        onSubmit={({expDate, expTime, type, description, seatsNumber}, {setStatus, setSubmitting}) => {
+                        onSubmit={({expDate, expTime, type, description, availability}, {setStatus, setSubmitting}) => {
                             setStatus();
+                            console.log(availability)
                             const data = JSON.stringify({
                                 experience: new Date(expDate+' '+expTime),
                                 type: type,
                                 description: description,
-                                seatsNumber: seatsNumber,
+                                availability: availability,
                                 latitude: this.props.location.lat,
                                 longitude: this.props.location.lng
                             });
+                            console.log(data)
                             axios.post('http://localhost:8080/api/v1/event', data)
                                 .then( response => {
                                     this.props.disablePin();
@@ -62,6 +72,7 @@ export default class MapSidebar extends Component {
                                     <Field name="expTime" type="time" style={{width: "40%",display: "inline-block", margin: "0"}} className={'form-control' + (errors.expTime && touched.expTime ? ' is-invalid' : '')} />
                                     <Field name="expDate" type="date" style={{width: "60%",display: "inline-block", margin: "0"}} className={'form-control' + (errors.expDate && touched.expDate ? ' is-invalid' : '')} />
                                     <ErrorMessage name="expDate" component="div" className="invalid-feedback"/>
+                                    <ErrorMessage name="expTime" component="div" className="invalid-feedback"/>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="type">Type:</label>
@@ -76,8 +87,8 @@ export default class MapSidebar extends Component {
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="type">Number of seats:</label>
-                                    <Field name="seatsNumber" as="select"
-                                           className={'form-control' + (errors.seatsNumber && touched.seatsNumber ? ' is-invalid' : '')}>
+                                    <Field name="availability" as="select"
+                                           className={'form-control' + (errors.availability && touched.availability ? ' is-invalid' : '')}>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -91,7 +102,7 @@ export default class MapSidebar extends Component {
                                         <option value="11">11</option>
                                         <option value="12">12</option>
                                     </Field>
-                                    <ErrorMessage name="seatsNumber" component="div" className="invalid-feedback"/>
+                                    <ErrorMessage name="availability" component="div" className="invalid-feedback"/>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="description">Description:</label>
@@ -99,14 +110,11 @@ export default class MapSidebar extends Component {
                                            className={'form-control' + (errors.description && touched.description ? ' is-invalid' : '')}/>
                                     <ErrorMessage name="description" component="div" className="invalid-feedback"/>
                                 </div>
-                                <div className="form-group">
-                                    <button type="submit" className="btn btn-success" disabled={isSubmitting}>Add
-                                    </button>
-                                    <button className="btn btn-danger float-right" >Close
-                                    </button>
+                                <div className="bottom-buttons">
+                                    <Button className="float-left" variant="success" type="submit" >Add</Button>
+                                    <Button className="float-right" variant="secondary" onClick={this.props.closeCard} >Close</Button>
                                 </div>
-                                {status &&
-                                <div className={'alert alert-danger'}>{status}</div>
+                                {status && <div className={'alert alert-danger'}>{status}</div>
                                 }
                             </Form>
                         )}
