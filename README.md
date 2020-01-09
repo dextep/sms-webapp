@@ -1,6 +1,6 @@
 ## ZRZUTY POGLADOWE
 
-!(https://i.ibb.co/b7tZS6v/Screenshot-2020-01-09-at-17-25-29.png)
+![1](https://i.ibb.co/b7tZS6v/Screenshot-2020-01-09-at-17-25-29.png)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
