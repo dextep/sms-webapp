@@ -195,6 +195,15 @@ export class LeafletMap extends Component {
         axios.post(`http://localhost:8080/api/v1/event/join/${id}`)
             .then( response => {
                 console.log(response)
+                // this.openCard(id)
+                this.closeCards();
+                getEvent(id)
+                    .then(event => {
+                        this.setState({
+                            event,
+                            showEvent: true
+                        });
+                    })
             })
             .catch( error => {
                 console.log(error)
@@ -205,6 +214,15 @@ export class LeafletMap extends Component {
         axios.post(`http://localhost:8080/api/v1/event/leave/${id}`)
             .then( response => {
                 console.log(response)
+                // this.openCard(id)
+                this.closeCards();
+                getEvent(id)
+                    .then(event => {
+                        this.setState({
+                            event,
+                            showEvent: true
+                        });
+                    })
             })
             .catch( error => {
                 console.log(error)
