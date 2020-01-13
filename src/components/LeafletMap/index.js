@@ -89,6 +89,7 @@ export class LeafletMap extends Component {
         getEvents()
             .then( events => {
                 events.map(event => {
+                    console.log(event)
                     if(event.user.id === this.state.user.id){
                         userEvents.push(event)
                     }else{
@@ -200,6 +201,16 @@ export class LeafletMap extends Component {
             });
     }
 
+    leaveEvent = (id) => {
+        axios.post(`http://localhost:8080/api/v1/event/leave/${id}`)
+            .then( response => {
+                console.log(response)
+            })
+            .catch( error => {
+                console.log(error)
+            });
+    }
+
     deleteEvent = (id) => {
         axios.delete(`http://localhost:8080/api/v1/event/${id}`)
             .then( response => {
@@ -234,6 +245,7 @@ export class LeafletMap extends Component {
                             closeCard={this.closeCards}
                             reloadPins={this.loadEventPins}
                             joinEvent={this.joinEvent}
+                            leaveEvent={this.leaveEvent}
                             event={this.state.event}
                         /> : ""
                 }
@@ -292,7 +304,7 @@ export class LeafletMap extends Component {
                                 {/*</Popup>*/}
                                 <Tooltip direction='right' offset={[-10, 0]} opacity={1} permanent>
                                     <span>
-                                        {format(new Date(`${event.experience}`),"dd.MM.yyyy HH:mm")}<br/>
+                                        {format(new Date(`${event.experience}`),"HH:mm dd.MM.yyyy")}<br/>
                                         {event.type}
                                     </span>
                                 </Tooltip>

@@ -5,9 +5,9 @@ import { format, differenceInMilliseconds, parse } from 'date-fns'
 import Timer from "react-compound-timer";
 
 export default class EventCard extends Component {
-// const EventCard = (props) => {
 
     render() {
+        console.log(this.props.event.partner.length)
         let initTime = 0;
         const dif = differenceInMilliseconds(new Date(`${this.props.event.experience}`), new Date());
         if (dif > 0) {
@@ -20,6 +20,14 @@ export default class EventCard extends Component {
         const exp = format(new Date(`${this.props.event.experience}`),"dd.MM.yyyy HH:mm").split(" ");
         const expDate = exp[0]
         const expTime = exp[1]
+        const userData = JSON.parse(localStorage.getItem("UserData")).id
+        const userExist = false;
+        for(let i = 0; i < this.props.event.partner.length; i++){
+            if( this.props.event.partner[i].id === JSON.parse(localStorage.getItem("UserData")).id ){
+                this.userExist = true
+            }
+        }
+        const availability = this.props.event.availability - this.props.event.partner.length + "/" +this.props.event.availability
     return (
         <div>
             <div id="sidebar">
@@ -77,10 +85,14 @@ export default class EventCard extends Component {
                             </React.Fragment>
                         )}
                     </Timer>
-                    <p style={{fontSize: "15px", margin: "0px"}}>Description: {this.props.event.descriptiona === "" ? this.props.event.descriptiona : "User hasn't added any description."}</p>
-                    <p style={{fontSize: "15px", margin: "0px"}}>Availability: {this.props.event.availability}/{this.props.event.availability}</p>
+                    <p style={{fontSize: "15px", margin: "0px"}}>Description: {this.props.event.description !== "" ? this.props.event.description : "User hasn't added any description."}</p>
+                    <p style={{fontSize: "15px", margin: "0px"}}>Availability: {availability}</p>
                     <div className="bottom-buttons">
-                        <Button className="float-left" variant="success" onClick={ () => { this.props.joinEvent( this.props.event.id ) }}>Join</Button>
+                        {
+                            this.userExist ?
+                            <Button className="float-left" variant="danger" onClick={ () => { this.props.leaveEvent( this.props.event.id ) }}>Leave</Button>
+                            : <Button className="float-left" variant="success" onClick={ () => { this.props.joinEvent( this.props.event.id ) }}>Join</Button>
+                        }
                         <Button className="float-right" variant="secondary" onClick={ this.props.closeCard }>Close</Button>
                     </div>
                 </div>

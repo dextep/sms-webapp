@@ -87,8 +87,8 @@ export default class EventEditCard extends Component {
                                     </React.Fragment>
                                 )}
                             </Timer>
-                            <p style={{fontSize: "15px", margin: "0px"}}>Description: {this.props.event.descriptiona === "" ? this.props.event.descriptiona : "none"}</p>
-                            <p style={{fontSize: "15px", margin: "0px"}}>Participants:</p>
+                        <p style={{fontSize: "15px", margin: "0px"}}>Description: {this.props.event.description !== "" ? this.props.event.description : "none"}</p>
+                        <p style={{fontSize: "15px", margin: "0px"}}>Participants:</p>
                             <ul style={{fontSize: "15px", padding: "0px", listStyleType: "none"}}>
                                 {this.createTable().map( (partner, index) =>
                                     <li key={index}>
