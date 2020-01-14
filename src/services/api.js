@@ -47,25 +47,17 @@ export function getEvents () {
         .then(res => res.data)
         .then(events => {
             return events;
-            /*
-            const eventSameLocation = {};
-            return events.reduce((all, event) => {
-
-                console.log("user id");
-                console.log(event.id);
-                const key = `${event.latitude.toFixed(3)}${event.longitude.toFixed(3)}`;
-                if (eventSameLocation[key]) {
-                    eventSameLocation[key].otherEvents = eventSameLocation[key].otherEvents || [];
-                    eventSameLocation[key].otherEvents.push(event);
-                } else {
-                    eventSameLocation[key] = event;
-                    all.push(event);
-                }
-                return all;
-            }, []);
-            */
         });
 };
+
+export function getEventTypes () {
+    return axios.get(`${routes.event}/types`)
+        .then(eventTypes => {
+            return eventTypes;
+        });
+};
+
+
 
 
 // if(localStorage.getItem('JwtToken')){

@@ -2,7 +2,7 @@ import React, {Component, createRef} from 'react';
 import './styles.css'
 import L from 'leaflet';
 import { Map, Marker, Popup, TileLayer, Tooltip, ZoomControl, AttributionControl } from 'react-leaflet'
-import {getLocation, getEvents, getEvent, setUserData} from '../../services/api'
+import {getLocation, getEvents, getEvent, setUserData, getEventTypes} from '../../services/api'
 import * as routes from "../../helpers/routes";
 import userLocation from "../../noun_Location_1044413.svg";
 import eventLocation from "../../event_location.svg";
@@ -285,7 +285,13 @@ export class LeafletMap extends Component {
                 {/*}*/}
                 {
                     this.state.addEvent ?
-                        <MapSidebar location={this.state.location} disablePin={this.disablePin} closeCard={this.closeCards}/>
+                        <MapSidebar
+                            location={this.state.location}
+                            disablePin={this.disablePin}
+                            closeCard={this.closeCards}
+                            closeCard={this.closeCards}
+                            eventTypes={this.getEventTypes}
+                        />
                         : ""
                 }
                 {/*{*/}
@@ -323,7 +329,8 @@ export class LeafletMap extends Component {
                                 <Tooltip direction='right' offset={[-10, 0]} opacity={1} permanent>
                                     <span>
                                         {format(new Date(`${event.experience}`),"HH:mm dd.MM.yyyy")}<br/>
-                                        {event.type}
+                                        {event.type.type}
+                                        {event.type.icon}
                                     </span>
                                 </Tooltip>
                             </Marker>

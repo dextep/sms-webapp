@@ -28,6 +28,7 @@ export default class EventCard extends Component {
             }
         }
         const availability = this.props.event.availability - this.props.event.partner.length + "/" +this.props.event.availability
+
     return (
         <div>
             <div id="sidebar">
@@ -38,7 +39,8 @@ export default class EventCard extends Component {
                     </p>
                     <h5 style={{fontSize: "17px", margin: "30px 0px 0px 0px" }}>
                         {this.props.event.user.fullName}<br/>
-                        {this.props.event.type}
+                        {this.props.event.type.type}
+                        {this.props.event.type.icon}
                         </h5>
                     <p style={{fontSize: "15px", margin: "10px 0px 0px 0px" }}>Event is comming soon:</p>
                     <Timer
@@ -86,13 +88,22 @@ export default class EventCard extends Component {
                         )}
                     </Timer>
                     <p style={{fontSize: "15px", margin: "0px"}}>Description: {this.props.event.description !== "" ? this.props.event.description : "User hasn't added any description."}</p>
-                    <p style={{fontSize: "15px", margin: "0px"}}>Availability: {availability}</p>
+                    <p style={{fontSize: "15px", margin: "0px"}}>Availability: { parseInt(availability) === 0 ? "full" : availability}</p>
                     <div className="bottom-buttons">
-                        {
-                            this.userExist ?
-                            <Button className="float-left" variant="danger" onClick={ () => { this.props.leaveEvent( this.props.event.id ) }}>Leave</Button>
-                            : <Button className="float-left" variant="success" onClick={ () => { this.props.joinEvent( this.props.event.id ) }}>Join</Button>
-                        }
+                            {
+                                this.userExist ?
+                                    <Button className="float-left" variant="danger" onClick={() => {
+                                        this.props.leaveEvent(this.props.event.id)
+                                    }}>Leave</Button>
+                                    :
+                                    [
+                                        parseInt(availability) !== 0 ?
+                                        <Button key='0' className="float-left" variant="success" onClick={() => {
+                                            this.props.joinEvent(this.props.event.id)
+                                        }}>Join</Button> : null
+                                    ]
+                            }
+
                         <Button className="float-right" variant="secondary" onClick={ this.props.closeCard }>Close</Button>
                     </div>
                 </div>

@@ -6,8 +6,47 @@ import * as Yup from "yup";
 import axios from "axios";
 import { history} from "../../helpers/history";
 import {Button} from "react-bootstrap";
+import {getEventTypes} from '../../services/api'
+import * as routes from "../../helpers/routes";
+
 
 export default class MapSidebar extends Component {
+    constructor() {
+        super();
+        this.state = {
+            options: ""
+        };
+    };
+
+    componentDidMount() {
+        this.renderOptions();
+    }
+
+    renderOptions = async() => {
+        try {
+            let res = await axios.get(`${routes.event}/types`);
+            let data = res.data;
+            // this will re render the view with new data
+            this.setState({
+                options: data.map((type, i) => (
+                    <option key={i} value={type.type}>{type.type}</option>
+                ))
+            });
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    createOptionList = () => {
+        let option = []
+        getEventTypes().then( eventTypes =>
+            eventTypes.map( (eventType,index) => {
+                option.push(<option key={index} value={eventType.id}>{eventType.type}</option>)
+            })
+        )
+        return option
+    }
+
     render() {
         let d = new Date();
         let year = d.getFullYear();
@@ -15,6 +54,7 @@ export default class MapSidebar extends Component {
         let day = d.getDate();
         let minY = new Date(year, month, day)
         let maxY = new Date(year + 1, month, day)
+
         return (
             <div id="sidebar">
                 <div className="container">
@@ -24,7 +64,7 @@ export default class MapSidebar extends Component {
                         initialValues={{
                             expTime: format(d.setMinutes( d.getMinutes() + 2 ), "HH:mm"),
                             expDate: format(new Date(), "yyyy-MM-dd"),
-                            type: 'Walking 🚶🏻‍♀️',
+                            type: 'walk',
                             description: '',
                             availability: 1
                         }}
@@ -56,8 +96,6 @@ export default class MapSidebar extends Component {
                             axios.post('http://localhost:8080/api/v1/event', data)
                                 .then( response => {
                                     this.props.disablePin();
-                                    console.log("response")
-                                    console.log(response)
                                     history.push( "/");
                                 })
                                 .catch( error => {
@@ -78,10 +116,9 @@ export default class MapSidebar extends Component {
                                     <label htmlFor="type">Type:</label>
                                     <Field name="type" as="select"
                                            className={'form-control' + (errors.type && touched.type ? ' is-invalid' : '')}>
-                                        <option value="Walking 🚶🏻‍♀️">Walking</option>
-                                        <option value="Running 🏃🏼‍♂️">Running</option>
-                                        <option value="Cycling 🚴🏻‍♀️">Cycling</option>
-                                        <option value="Swimming 🏊🏼‍♂️">Swimming</option>
+                                        {
+                                            this.state.options
+                                        }
                                     </Field>
                                     <ErrorMessage name="type" component="div" className="invalid-feedback"/>
                                 </div>
