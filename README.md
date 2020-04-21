@@ -1,6 +1,14 @@
 # Sport meeting system - Webapp
 
-React JS Web app
+Zastosowane technologie i narzędzia:
+- React 16.12.0
+- Bootsratp 4.4.1
+- HTML5, CSS
+- Node 10.17.0
+- Leaflet API 1.6.0
+- WebStorm 2019.2.3
+
+Strona powstała w oparciu o architekture SPA.
 
 ## Preview
 
