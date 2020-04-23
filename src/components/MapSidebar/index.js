@@ -65,7 +65,7 @@ export default class MapSidebar extends Component {
                         initialValues={{
                             expTime: format(d.setMinutes( d.getMinutes() + 2 ), "HH:mm"),
                             expDate: format(new Date(), "yyyy-MM-dd"),
-                            type: 'walk',
+                            type: 'Walk',
                             description: '',
                             availability: 1
                         }}
@@ -115,8 +115,7 @@ export default class MapSidebar extends Component {
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="type">Type:</label>
-                                    <Field name="type" as="select"
-                                           className={'form-control' + (errors.type && touched.type ? ' is-invalid' : '')}>
+                                    <Field name="type" as="select" className={'form-control' + (errors.type && touched.type ? ' is-invalid' : '')}>
                                         {
                                             this.state.options
                                         }
