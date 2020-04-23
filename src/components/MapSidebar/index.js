@@ -93,7 +93,7 @@ export default class MapSidebar extends Component {
                                 longitude: this.props.location.lng
                             });
                             console.log(data)
-                            axios.post('http://localhost:8080/api/v1/event', data)
+                            axios.post(`${serverUrl}/api/v1/event`, data)
                                 .then( response => {
                                     this.props.disablePin();
                                     history.push( "/");

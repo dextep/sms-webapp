@@ -1,5 +1,6 @@
 import React, {Component, createRef} from 'react';
 import './styles.css'
+import '../../helpers/routes'
 import L from 'leaflet';
 import { Map, Marker, Popup, TileLayer, Tooltip, ZoomControl, AttributionControl } from 'react-leaflet'
 import {getLocation, getEvents, getEvent, setUserData, getEventTypes} from '../../services/api'
@@ -192,7 +193,7 @@ export class LeafletMap extends Component {
     }
 
     joinEvent = (id) => {
-        axios.post(`http://localhost:8080/api/v1/event/join/${id}`)
+        axios.post(`${serverUrl}/api/v1/event/join/${id}`)
             .then( response => {
                 console.log(response)
                 // this.openCard(id)
@@ -211,7 +212,7 @@ export class LeafletMap extends Component {
     }
 
     leaveEvent = (id) => {
-        axios.post(`http://localhost:8080/api/v1/event/leave/${id}`)
+        axios.post(`${serverUrl}/api/v1/event/leave/${id}`)
             .then( response => {
                 console.log(response)
                 // this.openCard(id)
@@ -230,7 +231,7 @@ export class LeafletMap extends Component {
     }
 
     deleteEvent = (id) => {
-        axios.delete(`http://localhost:8080/api/v1/event/${id}`)
+        axios.delete(`${serverUrl}/api/v1/event/${id}`)
             .then( response => {
                 console.log(response)
                 this.closeCards();
