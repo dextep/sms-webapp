@@ -22,6 +22,7 @@ import { BeatLoader } from 'react-spinners';
 import axios from "axios";
 import {history} from "../../helpers/history";
 import {format} from "date-fns";
+import {serverUrl} from "../../helpers/routes";
 // Another way to import. This is recommended to reduce bundle size
 const userLocationIcon = L.icon({
     iconUrl: userLocation,

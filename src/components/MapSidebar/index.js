@@ -8,6 +8,7 @@ import { history} from "../../helpers/history";
 import {Button} from "react-bootstrap";
 import {getEventTypes} from '../../services/api'
 import * as routes from "../../helpers/routes";
+import {serverUrl} from "../../helpers/routes";
 
 
 export default class MapSidebar extends Component {
