@@ -1,4 +1,4 @@
-#Sport meeting system 🏃 - Webapp
+# 🏃 Sport meeting system - webapp
 
 
 Sport meeting system site for clients. 
@@ -16,7 +16,7 @@ This project was developed to learn and practice my skills.
 ## Table of contents
 
 * [Technologies](#technologies)
-* [Getting Started](#Getting Started)
+* [Getting Started](#getting-started)
 * [Setup](#setup)
 * [Preview](#preview)
 
