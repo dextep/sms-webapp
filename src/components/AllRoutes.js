@@ -1,5 +1,5 @@
 import React, { Component, Redirect } from 'react';
-import { Route, BrowserRouter, Switch } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import { PrivateRoute } from '../helpers/PrivateRouter'
 import { history } from "../helpers/history";
 
@@ -15,9 +15,9 @@ export class AllRoutes extends Component {
     render() {
         const LoginContainer = () => (
             <div className="container">
-                <Tabs defaultActiveKey="SignIn" id="uncontrolled-tab-example">
-                    <Tab eventKey="SignIn" title="Sign In">
-                        <Route path="/signIn" component={SignIn}/>
+                <Tabs defaultActiveKey="SignIn">
+                    <Tab eventKey="SignIn"  title="Sign In">
+                        <SignIn/>
                     </Tab>
                     <Tab eventKey="SignUp" title="Sign Up">
                         <SignUp/>
@@ -39,13 +39,13 @@ export class AllRoutes extends Component {
             </div>
         );
         return (
-            <BrowserRouter history={history}>
+            <Router history={history}>
                 <Switch>
                     <PrivateRoute exact path='/' component={DefaultContainer}/>
-                    <Route path='/signIn' component={LoginContainer}/>
+                    <Route path="/signIn" component={LoginContainer}/>
                     <Route component={Page404}/>
                 </Switch>
-            </BrowserRouter>
+            </Router>
         )
 
     }
