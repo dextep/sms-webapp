@@ -1,38 +1,73 @@
-# Sport meeting system - Webapp
+# 🏃 Sport meeting system - webapp
 
-Zastosowane technologie i narzędzia:
-- React 16.12.0
-- Bootsratp 4.4.1
-- HTML5, CSS
-- Node 10.17.0
-- Leaflet API 1.6.0
-- WebStorm 2019.2.3
 
-Strona powstała w oparciu o architekture SPA.
+Sport meeting system site for clients. 
+Allows to organization spontaneous sport events in your neighbourhood.
+
+[Live preview](https://sport-meeting-system.herokuapp.com), hosted by [Heroku](https://www.heroku.com/).
+
+If your interested about backend check my [sms-rest-api](https://github.com/dextep/sms-rest-api) repository.
+
+This project was developed to learn and practice my skills.
+
+![app-preview](https://i.ibb.co/zXDFfms/5.png)
+
+
+## Table of contents
+
+* [Technologies](#technologies)
+* [Getting Started](#getting-started)
+* [Setup](#setup)
+* [Preview](#preview)
+
+## Technologies
+
+Project is creating with:
+
+* React 16.12.0
+* Bootsratp 4.4.1
+* Leaflet API 1.6.0
+* Formik 2.0.6
+
+## Getting Started
+
+You can create your own user account or use existing one.
+
+Sample user credentials:
+
+- Login: **user@gmail.com**
+- Password: **admin1**
+
+## Setup
+
+Clone this repo to your local machine using https://github.com/dextep/sms-webapp.git
+
+To run this project, install it locally using npm:
+```
+$ cd ../sms-webapp
+$ npm install
+$ npm start
+```
 
 ## Preview
 
-Dodawanie nowego wydarzenia sportowego
+### Adding a new event
 
-![Obsługa wydarzeń](https://i.ibb.co/5KnBxGy/3.png)
+![new event](https://i.ibb.co/5KnBxGy/3.png)
 
-Podgląd organizowanego wydarzenia
+### Preview of an organized event
 
-![Podgląd wydarzeń](https://i.ibb.co/HYTJd7b/4.png)
+![organized event](https://i.ibb.co/HYTJd7b/4.png)
 
-Podgląd aktywnego wydarzenia
+### Preview of an active event
 
-![Podgląd wydarzeń](https://i.ibb.co/zXDFfms/5.png)
+![active event](https://i.ibb.co/zXDFfms/5.png)
 
-Ekrany aplikacji przedstawiony w wersji dla urządzeń mobilnych
+### Registration panel
 
-![Aplikacja mobilna](https://i.ibb.co/gTpK8tV/6.png)
+![registration panel](https://i.ibb.co/y5xjJz4/1.png)
 
-Ekran rejestracji
+### Login panel
 
-![Rejestracja](https://i.ibb.co/y5xjJz4/1.png)
-
-Ekran logowania 
-
-![Logowanie](https://i.ibb.co/5RVqfBL/2.png)
+![login panel](https://i.ibb.co/5RVqfBL/2.png)
 
