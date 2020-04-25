@@ -2,7 +2,7 @@ import React, { Component, Redirect } from 'react';
 import { Route, BrowserRouter, Switch } from 'react-router-dom';
 import { PrivateRoute } from '../helpers/PrivateRouter'
 import { history } from "../helpers/history";
-
+import './styles.css';
 import { Tabs, Tab } from 'react-bootstrap';
 
 import Navigationbar from './Navbar';
@@ -14,15 +14,17 @@ export class AllRoutes extends Component {
 
     render() {
         const LoginContainer = () => (
-            <div className="container">
-                <Tabs defaultActiveKey="SignIn">
-                    <Tab eventKey="SignIn"  title="Sign In">
-                        <Route path="/signIn" component={SignIn}/>
-                    </Tab>
-                    <Tab eventKey="SignUp" title="Sign Up">
-                        <SignUp/>
-                    </Tab>
-                </Tabs>
+            <div className={"header"}>
+                <div className="headerContainer">
+                    <Tabs defaultActiveKey="SignIn" className={"nav-justified"}>
+                        <Tab eventKey="SignIn"  title="Sign In">
+                            <Route path="/signIn" component={SignIn}/>
+                        </Tab>
+                        <Tab eventKey="SignUp" title="Sign Up">
+                            <SignUp/>
+                        </Tab>
+                    </Tabs>
+                </div>
             </div>
         );
 

@@ -16,7 +16,6 @@ class SignUp extends Component {
         let maxY = new Date(year - 10, month, day)
         return (
             <div>
-                <h2>SignUp</h2>
                 <Formik
                     initialValues={{
                         firstName: '',
@@ -82,7 +81,7 @@ class SignUp extends Component {
                     }}
                     render={({ errors, status, touched, isSubmitting }) => (
                         <Form>
-                            <div className="form-group">
+                            <div className="form-group" style={{paddingTop:"20px"}}>
                                 <label htmlFor="firstName">First Name:</label>
                                 <Field name="firstName" type="text" className={'form-control' + (errors.firstName && touched.firstName ? ' is-invalid' : '')} />
                                 <ErrorMessage name="firstName" component="div" className="invalid-feedback" />
@@ -123,7 +122,7 @@ class SignUp extends Component {
                                 <ErrorMessage name="mobileNr" component="div" className="invalid-feedback" />
                             </div>
                             <div className="form-group">
-                                <button type="submit" className="btn btn-primary" disabled={isSubmitting}>Sign Up</button>
+                                <button type="submit" className="btn btn-primary btn-block" disabled={isSubmitting}>Sign Up</button>
                             </div>
                             {status &&
                             <div className={'alert alert-danger'}>{status}</div>

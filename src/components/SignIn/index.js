@@ -18,7 +18,6 @@ class SignIn extends Component {
     render() {
         return (
             <div>
-                <h2>Login</h2>
                 <Formik
                     initialValues={{
                         email: '',
@@ -43,7 +42,7 @@ class SignIn extends Component {
                     }}
                     render={({ errors, status, touched, isSubmitting }) => (
                         <Form>
-                            <div className="form-group">
+                            <div className="form-group" style={{paddingTop:"20px"}}>
                                 <label htmlFor="email">Email</label>
                                 <Field name="email" type="text" className={'form-control' + (errors.email && touched.email ? ' is-invalid' : '')} />
                                 <ErrorMessage name="email" component="div" className="invalid-feedback" />
@@ -54,7 +53,7 @@ class SignIn extends Component {
                                 <ErrorMessage name="password" component="div" className="invalid-feedback" />
                             </div>
                             <div className="form-group">
-                                <button type="submit" className="btn btn-primary" disabled={isSubmitting}>Login</button>
+                                <button type="submit" className="btn btn-primary btn-block" disabled={isSubmitting}>Login</button>
                             </div>
                             {status &&
                             <div className={'alert alert-danger'}>{status}</div>
