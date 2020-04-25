@@ -1,5 +1,5 @@
 import React, { Component, Redirect } from 'react';
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import { Route, BrowserRouter, Switch } from 'react-router-dom';
 import { PrivateRoute } from '../helpers/PrivateRouter'
 import { history } from "../helpers/history";
 
@@ -17,7 +17,7 @@ export class AllRoutes extends Component {
             <div className="container">
                 <Tabs defaultActiveKey="SignIn">
                     <Tab eventKey="SignIn"  title="Sign In">
-                        <SignIn/>
+                        <Route path="/signIn" component={SignIn}/>
                     </Tab>
                     <Tab eventKey="SignUp" title="Sign Up">
                         <SignUp/>
@@ -39,13 +39,13 @@ export class AllRoutes extends Component {
             </div>
         );
         return (
-            <Router history={history}>
+            <BrowserRouter history={history}>
                 <Switch>
                     <PrivateRoute exact path='/' component={DefaultContainer}/>
-                    <Route path="/signIn" component={LoginContainer}/>
+                    <Route path='/signIn' component={LoginContainer}/>
                     <Route component={Page404}/>
                 </Switch>
-            </Router>
+            </BrowserRouter>
         )
 
     }
