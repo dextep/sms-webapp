@@ -4,7 +4,8 @@
 Sport meeting system site for clients. 
 Allows to organization spontaneous sport events in your neighbourhood.
 
-[Live preview](https://sport-meeting-system.herokuapp.com), hosted by [Heroku](https://www.heroku.com/) then please note that the first page load can take about a minute.
+[Live preview](https://sport-meeting-system.herokuapp.com), hosted by [Heroku](https://www.heroku.com/). 
+__*Please note due of hosting limits the first load can take a while.*__
 
 If your interested about backend check my [sms-rest-api](https://github.com/dextep/sms-rest-api) repository.
 
