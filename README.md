@@ -4,7 +4,7 @@
 Sport meeting system site for clients. 
 Allows to organization spontaneous sport events in your neighbourhood.
 
-[Live preview](https://sport-meeting-system.herokuapp.com), hosted by [Heroku](https://www.heroku.com/).
+[Live preview](https://sport-meeting-system.herokuapp.com), hosted by [Heroku](https://www.heroku.com/) then please note that the first page load can take about a minute.
 
 If your interested about backend check my [sms-rest-api](https://github.com/dextep/sms-rest-api) repository.
 
@@ -51,6 +51,14 @@ $ npm start
 
 ## Preview
 
+### Registration panel
+
+![registration panel](https://i.ibb.co/0KL2hvd/Screenshot-2020-04-26-at-16-11-01.png)
+
+### Login panel
+
+![login panel](https://i.ibb.co/GWb9MqX/Screenshot-2020-04-26-at-16-09-54.png)
+
 ### Adding a new event
 
 ![new event](https://i.ibb.co/5KnBxGy/3.png)
@@ -63,11 +71,4 @@ $ npm start
 
 ![active event](https://i.ibb.co/zXDFfms/5.png)
 
-### Registration panel
-
-![registration panel](https://i.ibb.co/y5xjJz4/1.png)
-
-### Login panel
-
-![login panel](https://i.ibb.co/5RVqfBL/2.png)
 
