@@ -6,15 +6,5 @@ export const login = (email, password) => {
         email: email,
         password: password,
     });
-    const headers = {
-        'Content-Type': 'application/json'
-    };
     return axios.post(routes.auth, data)
-}
-
-
-
-function logout() {
-    // remove user from local storage to log user out
-    localStorage.removeItem('JwtToken');
-}
+};

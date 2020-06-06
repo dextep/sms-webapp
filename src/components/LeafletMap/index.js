@@ -4,6 +4,7 @@ import '../../helpers/routes'
 import L from 'leaflet';
 import { Map, Marker, Popup, TileLayer, Tooltip, AttributionControl } from 'react-leaflet'
 import {getLocation, getEvents, getEvent, setUserData } from '../../services/api'
+
 import userLocation from "../../noun_Location_1044413.svg";
 import EventCard from "../EventCard/index";
 import EventEditCard from "../EventEditCard/index";
@@ -12,12 +13,12 @@ import {Button, ButtonGroup } from 'react-bootstrap'
 import MapSidebar from "../MapSidebar";
 import { MdMyLocation } from 'react-icons/md';
 import { css } from '@emotion/core';
-// First way to import
+
 import { BeatLoader } from 'react-spinners';
 import axios from "axios";
 import {format} from "date-fns";
 import {serverUrl} from "../../helpers/routes";
-// Another way to import. This is recommended to reduce bundle size
+
 const userLocationIcon = L.icon({
     iconUrl: userLocation,
     iconSize: [40, 82]
@@ -178,8 +179,7 @@ export class LeafletMap extends Component {
     joinEvent = (id) => {
         axios.post(`${serverUrl}/api/v1/event/join/${id}`)
             .then( response => {
-                console.log(response)
-                // this.openCard(id)
+                console.log(response);
                 this.closeCards();
                 getEvent(id)
                     .then(event => {
