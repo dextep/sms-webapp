@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from "yup";
-import {login} from "../../services/authenticationServices";
-import Dashboard from "../Dashboard";
 import { signUp } from "../../services/api"
 class SignUp extends Component {
 
