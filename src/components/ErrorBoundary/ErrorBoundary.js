@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import interceptor from '../../helpers/interceptor'
-import Dashboard from "../Dashboard";
+import interceptor from '../../helpers/interceptor';
 import {AllRoutes} from "../AllRoutes";
-import axios from "axios";
 
 class ErrorBoundary extends Component {
     constructor(props) {
@@ -13,8 +11,6 @@ class ErrorBoundary extends Component {
     }
 
     componentDidMount() {
-        console.log("sad")
-
             interceptor()
                 .then( resp => {
                     console.log("All ok: "+resp)
@@ -23,19 +19,11 @@ class ErrorBoundary extends Component {
                     })
                 })
                 .catch( error => {
-                    console.log(error)
+                    console.log(error);
                 this.setState({
                     hasError: true
                 })
             })
-
-
-        // {
-        //     console.log(e)
-        //     this.setState({
-        //         hasError:true
-        //     })
-        // }
     }
 
     render() {

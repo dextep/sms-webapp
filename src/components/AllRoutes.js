@@ -1,4 +1,4 @@
-import React, { Component, Redirect } from 'react';
+import React, { Component } from 'react';
 import { Route, BrowserRouter, Switch } from 'react-router-dom';
 import { PrivateRoute } from '../helpers/PrivateRouter'
 import { history } from "../helpers/history";

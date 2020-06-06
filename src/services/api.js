@@ -38,10 +38,6 @@ export function getLocation() {
     });
 }
 
-export function addEvent(data) {
-    return axios.post(routes.event, data)
-}
-
 export function getEvents () {
     return axios.get(`${routes.event}`)
         .then(res => res.data)
@@ -57,18 +53,6 @@ export function getEventTypes () {
         });
 };
 
-
-
-
-// if(localStorage.getItem('JwtToken')){
-//     axios.get(`${routes.profile}`)
-//         .then(response => {
-//             localStorage.setItem('UserData', JSON.stringify(response.data) );
-//         })
-//         .catch( error => {
-//             return Promise.reject(error)
-//         })
-// }
 export function setUserData() {
     return axios.get(`${routes.profile}`)
         .then(response => {

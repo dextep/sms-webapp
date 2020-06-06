@@ -1,36 +1,26 @@
-import React, {Component, createRef} from 'react';
+import React, {Component } from 'react';
 import './styles.css'
 import '../../helpers/routes'
 import L from 'leaflet';
-import { Map, Marker, Popup, TileLayer, Tooltip, ZoomControl, AttributionControl } from 'react-leaflet'
-import {getLocation, getEvents, getEvent, setUserData, getEventTypes} from '../../services/api'
-import * as routes from "../../helpers/routes";
+import { Map, Marker, Popup, TileLayer, Tooltip, AttributionControl } from 'react-leaflet'
+import {getLocation, getEvents, getEvent, setUserData } from '../../services/api'
 import userLocation from "../../noun_Location_1044413.svg";
-import eventLocation from "../../event_location.svg";
 import EventCard from "../EventCard/index";
 import EventEditCard from "../EventEditCard/index";
 import Control from 'react-leaflet-control';
-import AddEventCard from '../addEventCard'
-import {Button, ButtonGroup, Image} from 'react-bootstrap'
-import {Card} from "react-bootstrap";
+import {Button, ButtonGroup } from 'react-bootstrap'
 import MapSidebar from "../MapSidebar";
-import Sidebar from "react-sidebar";
 import { MdMyLocation } from 'react-icons/md';
 import { css } from '@emotion/core';
 // First way to import
 import { BeatLoader } from 'react-spinners';
 import axios from "axios";
-import {history} from "../../helpers/history";
 import {format} from "date-fns";
 import {serverUrl} from "../../helpers/routes";
 // Another way to import. This is recommended to reduce bundle size
 const userLocationIcon = L.icon({
     iconUrl: userLocation,
     iconSize: [40, 82]
-});
-const eventLocationIcon = L.icon({
-    iconUrl: eventLocation,
-    iconSize: [40, 52]
 });
 
 export class LeafletMap extends Component {
@@ -170,7 +160,6 @@ export class LeafletMap extends Component {
     }
 
     disablePin = () => {
-        // if (this.state.addEvent) {
             this.setState({
                 addEvent: false
             })
@@ -184,13 +173,6 @@ export class LeafletMap extends Component {
                 addEvent: true
             })
         }
-    }
-
-    closeAddEventCard = () => {
-        // this.state.marker.remove()
-        this.setState({
-            addEvent: false
-        });
     }
 
     joinEvent = (id) => {
@@ -278,13 +260,6 @@ export class LeafletMap extends Component {
                             event={this.state.event}
                         /> : ""
                 }
-                {/*{*/}
-                {/*    this.state.addEvent ?*/}
-                {/*        <AddEventCard*/}
-                {/*            closeCard={this.closeAddEventCard}*/}
-                {/*            location={this.state.location}*/}
-                {/*        /> : ""*/}
-                {/*}*/}
                 {
                     this.state.addEvent ?
                         <MapSidebar
@@ -296,11 +271,6 @@ export class LeafletMap extends Component {
                         />
                         : ""
                 }
-                {/*{*/}
-                {/*    this.state.showEvent ?*/}
-                {/*        <MapSidebar/>*/}
-                {/*        : ""*/}
-                {/*}*/}
                 <Map
                     attributionControl={false}
                     zoomControl={false}
@@ -319,15 +289,6 @@ export class LeafletMap extends Component {
                                 key={event.id}
                                 position={[event.latitude, event.longitude]}
                                 >
-                                {/*<Popup>*/}
-                                {/*    <p><em>{event.type}:</em> {event.description}</p>*/}
-                                {/*    { event.otherEvents ? event.otherEvents.map(event =>*/}
-                                {/*        <p key={event.id}>*/}
-
-                                {/*            <em>{event.type}:</em> {event.description}*/}
-                                {/*        </p>) : ''*/}
-                                {/*    }*/}
-                                {/*</Popup>*/}
                                 <Tooltip direction='right' offset={[-10, 0]} opacity={1} permanent>
                                     <span>
                                         {format(new Date(`${event.experience}`),"HH:mm dd.MM.yyyy")}<br/>
@@ -346,15 +307,6 @@ export class LeafletMap extends Component {
                                 key={event.id}
                                 position={[event.latitude, event.longitude]}
                                 >
-                                {/*<Popup>*/}
-                                {/*    <p><em>{event.type}:</em> {event.description}</p>*/}
-                                {/*    { event.otherEvents ? event.otherEvents.map(event =>*/}
-                                {/*        <p key={event.id}>*/}
-
-                                {/*            <em>{event.type}:</em> {event.description}*/}
-                                {/*        </p>) : ''*/}
-                                {/*    }*/}
-                                {/*</Popup>*/}
                             </Marker>
                         ))
                     }

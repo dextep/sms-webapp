@@ -1,22 +1,9 @@
 import React from 'react';
 import './styles.css'
 import { format } from 'date-fns'
-import {
-    Card,
-    Button,
-    CardTitle,
-    CardText,
-    Form,
-    FormGroup,
-    Label,
-    Input,
-    FormLabel,
-    ButtonGroup,
-    ButtonToolbar
-} from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import {ErrorMessage, Field, Formik} from "formik";
 import * as Yup from "yup";
-import {getLocation, getEvents, addEvent} from '../../services/api'
 const AddEventCard = (props) => {
 
 
@@ -43,30 +30,8 @@ const AddEventCard = (props) => {
                             .min(minY)
                             .required('expDate is required'),
                     })}
-                    onSubmit={ ({expDate, type, description}, { setStatus ,setSubmitting }) => {
+                    onSubmit={ ({expDate, type, description}, { setStatus }) => {
                         setStatus();
-                        // console.log(JSON.stringify({
-                        //     experience: expDate,
-                        //     type: type,
-                        //     description: description,
-                        //     latitude: props.location.lat,
-                        //     longitude: props.location.lng
-                        // }))
-                        // addEvent(JSON.stringify({
-                        //     experience: expDate,
-                        //     type: type,
-                        //     description: description,
-                        //     latitude: props.location.lat,
-                        //     longitude: props.location.lng
-                        //     }))
-                        // .then( response => {
-                        //     console.log(response.data)
-                        //     // this.props.history.push( "/signIn");
-                        // })
-                        // .catch( error => {
-                        //     setSubmitting(false);
-                        //     setStatus(error.toString())
-                        // });
                     }}
                     render={({ errors, status, touched, isSubmitting }) => (
                         <Form>
@@ -99,10 +64,7 @@ const AddEventCard = (props) => {
                             }
                         </Form>
                     )}
-
                 />
-                {/*<Button className="float-left " variant="success" onClick={props.closeCard}>Add</Button>*/}
-                {/*<Button className="float-right" variant="danger" onClick={props.closeCard}>Close</Button>*/}
             </Card.Body>
         </Card>
     );

@@ -93,7 +93,6 @@ export default class MapSidebar extends Component {
                                 latitude: this.props.location.lat,
                                 longitude: this.props.location.lng
                             });
-                            console.log(data)
                             axios.post(`${serverUrl}/api/v1/event`, data)
                                 .then( response => {
                                     this.props.disablePin();
@@ -104,7 +103,7 @@ export default class MapSidebar extends Component {
                                     setStatus(error.toString())
                                 });
                         }}
-                        render={({errors, status, touched, isSubmitting}) => (
+                        render={({errors, status, touched }) => (
                             <Form>
                                 <div className="form-group">
                                     <label htmlFor="expDate">When:</label>
