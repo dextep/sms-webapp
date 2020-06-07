@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from "yup";
 import { signUp } from "../../services/api"
-import showPassword from '../../eye.png';
-import hidePassword from '../../hide.png';
 
 class SignUp extends Component {
 
