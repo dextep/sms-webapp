@@ -70,7 +70,7 @@ class SignUp extends Component {
                             birthday,
                             mobileNr)
                             .then( response => {
-                                window.location.reload();
+                                this.props.history.push( "/");
                             })
                             .catch( error => {
                                 setSubmitting(false);

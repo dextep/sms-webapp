@@ -21,7 +21,7 @@ export class AllRoutes extends Component {
                             <Route path="/signIn" component={SignIn}/>
                         </Tab>
                         <Tab eventKey="SignUp" title="Sign Up">
-                            <SignUp/>
+                            <Route path="/" component={SignUp}/>
                         </Tab>
                     </Tabs>
                 </div>
