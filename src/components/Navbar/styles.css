@@ -1,3 +1,10 @@
 #nav-dropdown{
     color: white;
 }
+
+.field-icon {
+    float: right;
+    margin-top: -50px;
+    position: relative;
+    z-index: 2;
+}
