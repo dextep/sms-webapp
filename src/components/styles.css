@@ -4,12 +4,11 @@
     font-size: 16px;
     line-height: 1.7;
     color: #777;
-    background-color: #fff;
-    overflow: auto;
     height: 100vh;
-    background-image: url(background.jpg);
-    background-size: cover;
-    background-position: bottom;
+    background-image: linear-gradient(
+            to right,
+            rgba(0, 204, 255, 0.2),
+            rgba(255, 200, 0, 0.2));
     position: relative;
 }
  .headerContainer {
@@ -22,3 +21,20 @@
      border-radius: 10px;
      padding: 10px 10px 0 10px;
  }
+
+.bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    opacity: .8;
+    overflow: hidden;
+}
+
+.bg-video__content {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}

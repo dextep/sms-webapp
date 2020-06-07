@@ -9,12 +9,21 @@ import Navigationbar from './Navbar';
 import SignIn from './SignIn';
 import Dashboard from '../components/Dashboard';
 import SignUp from '../components/SignUp';
+import video from '../running.mp4';
 
 export class AllRoutes extends Component {
 
     render() {
         const LoginContainer = () => (
-            <div className={"header"}>
+            <div className="header">
+
+                <div className="bg-video">
+                    <video className="bg-video__content" autoPlay muted loop>
+                        <source src={video} type="video/mp4" />
+                        Your browser is not supported!
+                    </video>
+                </div>
+
                 <div className="headerContainer">
                     <Tabs defaultActiveKey="SignIn" className={"nav-justified"}>
                         <Tab eventKey="SignIn"  title="Sign In">
