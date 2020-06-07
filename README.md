@@ -1,10 +1,9 @@
 # 🏃 Sport meeting system - webapp
 
-
 Sport meeting system site for clients. 
 Allows to organization spontaneous sport events in your neighbourhood.
 
-[Live preview](https://sport-meeting-system.herokuapp.com), hosted by [Heroku](https://www.heroku.com/). 
+Live [preview](https://sportmeetingsystem.netlify.app), hosted by [Heroku](https://www.heroku.com/) and [Netfly](https://www.netlify.com/). 
 __*Please note due of hosting limits the first load can take a while.*__
 
 If your interested about backend check my [sms-rest-api](https://github.com/dextep/sms-rest-api) repository.
@@ -37,7 +36,7 @@ You can create your own user account or use existing one.
 Sample user credentials:
 
 - Login: **user@gmail.com**
-- Password: **admin1**
+- Password: **admin**
 
 ## Setup
 
