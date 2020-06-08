@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from "yup";
 import { signUp } from "../../services/api"
+import './styles.css';
 
 class SignUp extends Component {
 
