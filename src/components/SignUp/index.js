@@ -85,7 +85,13 @@ class SignUp extends Component {
                             birthday,
                             mobileNr)
                             .then( response => {
-                                this.props.history.push( "/");
+                                const status = response.data.status;
+                                if (status === "OK"){
+                                    this.props.history.push( "/");
+                                }else if (status === "DUPLICATE_ENTITY"){
+                                    setSubmitting(false);
+                                    setStatus('User with that email already exists.');
+                                }
                             })
                             .catch( error => {
                                 setSubmitting(false);
@@ -107,13 +113,13 @@ class SignUp extends Component {
                             <div className="form-group">
                                 <label htmlFor="password">Password:</label>
                                 <Field id="password" name="password" type="password"  className={'form-control' + (errors.password && touched.password ? ' is-invalid' : '')} />
-                                <span id="password" onClick={this.showOrHidePassword} className="fa fa-fw fa-eye field-icon toggle-password" />
+                                <span onClick={this.showOrHidePassword} className="fa fa-fw fa-eye field-icon toggle-password" />
                                 <ErrorMessage name="password" component="div" className="invalid-feedback" />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="confirmPassword">Confirm Password:</label>
                                 <Field id="confirmPassword" name="confirmPassword" type="password" className={'form-control' + (errors.confirmPassword && touched.confirmPassword ? ' is-invalid' : '')} />
-                                <span id="confirmPassword" onClick={this.showOrHidePasswordConfirm} className="fa fa-fw fa-eye field-icon toggle-password" />
+                                <span onClick={this.showOrHidePasswordConfirm} className="fa fa-fw fa-eye field-icon toggle-password" />
                                 <ErrorMessage name="confirmPassword" component="div" className="invalid-feedback" />
                             </div>
                             <div className="form-group">

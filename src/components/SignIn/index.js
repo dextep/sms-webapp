@@ -15,6 +15,16 @@ class SignIn extends Component {
         }
     }
 
+
+    showOrHidePassword = () => {
+        const password = document.getElementById('signInPassword');
+        if (password.type === 'password') {
+            password.type = 'text';
+        } else {
+            password.type = 'password';
+        }
+    };
+
     render() {
         return (
             <div>
@@ -54,8 +64,9 @@ class SignIn extends Component {
                                 <ErrorMessage name="email" component="div" className="invalid-feedback" />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="password">Password</label>
-                                <Field name="password" type="password" className={'form-control' + (errors.password && touched.password ? ' is-invalid' : '')} />
+                                <label htmlFor="signInPassword">Password</label>
+                                <Field id="signInPassword" name="password" type="password" className={'form-control' + (errors.password && touched.password ? ' is-invalid' : '')} />
+                                <span onClick={this.showOrHidePassword} className="fa fa-fw fa-eye field-icon toggle-password" />
                                 <ErrorMessage name="password" component="div" className="invalid-feedback" />
                             </div>
                             <div className="form-group">
