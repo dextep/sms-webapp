@@ -107,8 +107,8 @@ export default class MapSidebar extends Component {
                             <Form>
                                 <div className="form-group">
                                     <label htmlFor="expDate">When:</label>
-                                    <Field name="expTime" type="time" style={{width: "156px",display: "inline-block", margin: "0"}} className={'form-control' + (errors.expTime && touched.expTime ? ' is-invalid' : '')} />
-                                    <Field name="expDate" type="date" style={{width: "98px",display: "inline-block", margin: "0"}} className={'form-control' + (errors.expDate && touched.expDate ? ' is-invalid' : '')} />
+                                    <Field name="expTime" type="time" style={{width: "98px",display: "inline-block", margin: "0"}} className={'form-control' + (errors.expTime && touched.expTime ? ' is-invalid' : '')} />
+                                    <Field name="expDate" type="date" style={{width: "156px",display: "inline-block", margin: "0"}} className={'form-control' + (errors.expDate && touched.expDate ? ' is-invalid' : '')} />
                                     <ErrorMessage name="expDate" component="div" className="invalid-feedback"/>
                                     <ErrorMessage name="expTime" component="div" className="invalid-feedback"/>
                                 </div>
