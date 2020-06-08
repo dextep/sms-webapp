@@ -78,9 +78,9 @@ export default class MapSidebar extends Component {
                             expTime: Yup
                                 .string()
                                 .required("Event time is required.")
-                                .test("is-greater", "Event time should be later.", function(value) {
-                                    return isAfter(parse(value, "HH:mm", new Date()), parse(format(new Date(), "HH:mm"),"HH:mm", new Date()));
-                                })
+                                // .test("is-greater", "Event time should be later.", function(value) {
+                                //     return isAfter(parse(value, "HH:mm", new Date()), parse(format(new Date(), "HH:mm"),"HH:mm", new Date()));
+                                // })
                         })}
                         onSubmit={({expDate, expTime, type, description, availability}, {setStatus, setSubmitting}) => {
                             setStatus();
