@@ -38,7 +38,7 @@ export default class EventEditCard extends Component {
                             {expDate}<br/>
                             {expTime}
                         </p>
-                        <h5 style={{fontSize: "19px", margin: "30px 0px 0px 0px" }}>{this.props.event.type.type}</h5>
+                        <h5 style={{fontSize: "19px", margin: "30px 0px 0px 0px" }}>{this.props.event.type.icon+" "+this.props.event.type.type}</h5>
                         <p style={{fontSize: "15px", margin: "10px 0px 0px 0px" }}>You'r event is comming soon:</p>
                             <Timer
                                 initialTime={initTime}

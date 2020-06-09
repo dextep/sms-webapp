@@ -108,17 +108,21 @@ export class LeafletMap extends Component {
     }
 
     findPin = () => {
-        this.myMapRef.current.leafletElement.flyTo(this.state.location, 16)
+        if (this.state.addEvent){
+            this.myMapRef.current.leafletElement.flyTo(this.state.location, 16)
+        }
     }
 
     resetPin = () => {
-        getLocation()
-            .then(location => {
-                this.myMapRef.current.leafletElement.flyTo(location, 16)
-                this.setState({
-                    location
+        if (this.state.addEvent) {
+            getLocation()
+                .then(location => {
+                    this.myMapRef.current.leafletElement.flyTo(location, 16)
+                    this.setState({
+                        location
+                    });
                 });
-            });
+        }
     }
 
     resetLocation = () => {
@@ -156,6 +160,7 @@ export class LeafletMap extends Component {
 
     updatePosition = () => {
         this.setState({
+            zoom: this.myMapRef.current.leafletElement.getZoom(),
             location: this.myPinRef.current.leafletElement.getLatLng(),
         })
     }
@@ -169,11 +174,19 @@ export class LeafletMap extends Component {
 
     addEvent = () => {
         this.closeCards();
+        const cords = this.getCenterCords();
         if(!this.state.addEvent){
             this.setState({
+                zoom: this.myMapRef.current.leafletElement.getZoom() + 2,
+                location: cords,
                 addEvent: true
             })
         }
+    }
+
+
+    getCenterCords = () => {
+        return this.myMapRef.current.leafletElement.getCenter();
     }
 
     joinEvent = (id) => {
@@ -323,7 +336,7 @@ export class LeafletMap extends Component {
                                 position={position}>
                                 <Popup
                                     autoPan={true}>
-                                    <p>You</p>
+                                    <p>Event position</p>
                                 </Popup>
                             </Marker> : ''
                     }
@@ -331,10 +344,10 @@ export class LeafletMap extends Component {
                     <AttributionControl position="bottomleft"/>
                     <Control position="topleft" >
                         <ButtonGroup vertical size={'sm'}>
-                            <Button onClick={ () => this.resetLocation()} xs={6} md={4}><MdMyLocation/></Button>
-                            <Button onClick={ () => this.findPin()}>Find Pin</Button>
-                            <Button onClick={ () => this.resetPin()}>Reset Pin</Button>
-                            <Button onClick={ () => this.addEvent()}>Add Event</Button>
+                            <Button onClick={ () => this.resetLocation()} title="This option will center the map to your location." xs={6} md={4}><MdMyLocation/></Button>
+                            <Button onClick={ () => this.findPin()} title="This option will center the map to your pin location.">Find Pin</Button>
+                            <Button onClick={ () => this.resetPin()} title="This option will center the pin to your current location.">Reset Pin</Button>
+                            <Button onClick={ () => this.addEvent()} title="This option will drop the pin to your map location.">Add Event</Button>
                         </ButtonGroup>
                     </Control>
 

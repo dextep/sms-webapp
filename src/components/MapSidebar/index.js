@@ -30,7 +30,7 @@ export default class MapSidebar extends Component {
             // this will re render the view with new data
             this.setState({
                 options: data.map((type, i) => (
-                    <option key={i} value={type.type}>{type.type}</option>
+                    <option key={i} value={type.type}>{type.icon+" "+type.type}</option>
                 ))
             });
         } catch (err) {
@@ -63,7 +63,7 @@ export default class MapSidebar extends Component {
                     <h5>Adding Event</h5>
                     <Formik
                         initialValues={{
-                            expTime: format(d.setMinutes( d.getMinutes() + 2 ), "HH:mm"),
+                            expTime: format(d.setMinutes( d.getMinutes() + 60 ), "HH:mm"),
                             expDate: format(new Date(), "yyyy-MM-dd"),
                             type: 'Walk',
                             description: '',
@@ -78,9 +78,6 @@ export default class MapSidebar extends Component {
                             expTime: Yup
                                 .string()
                                 .required("Event time is required.")
-                                // .test("is-greater", "Event time should be later.", function(value) {
-                                //     return isAfter(parse(value, "HH:mm", new Date()), parse(format(new Date(), "HH:mm"),"HH:mm", new Date()));
-                                // })
                         })}
                         onSubmit={({expDate, expTime, type, description, availability}, {setStatus, setSubmitting}) => {
                             setStatus();
@@ -122,7 +119,7 @@ export default class MapSidebar extends Component {
                                     <ErrorMessage name="type" component="div" className="invalid-feedback"/>
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor="type">Number of seats:</label>
+                                    <label htmlFor="type">Participants:</label>
                                     <Field name="availability" as="select"
                                            className={'form-control' + (errors.availability && touched.availability ? ' is-invalid' : '')}>
                                         <option value="1">1</option>
