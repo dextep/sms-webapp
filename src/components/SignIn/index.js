@@ -18,7 +18,6 @@ class SignIn extends Component {
     render() {
         return (
             <div>
-                <h2>Login</h2>
                 <Formik
                     initialValues={{
                         email: '',
@@ -36,9 +35,15 @@ class SignIn extends Component {
                                 localStorage.setItem('JwtToken', token );
                                 this.props.history.push( "/");
                             })
-                            .catch( error => {
+                            .catch(error => {
                                 setSubmitting(false);
-                                setStatus(error.toString())
+                                if (error.response) {
+                                    if (error.response.status === 401) {
+                                        setStatus("Your email or password is incorrect.");
+                                    }
+                                }else{
+                                    setStatus("Something goes wrong!\nCheck your connection and try again.");
+                                }
                             });
                     }}
                     render={({ errors, status, touched, isSubmitting }) => (

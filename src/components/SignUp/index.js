@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from "yup";
-import {login} from "../../services/authenticationServices";
-import Dashboard from "../Dashboard";
 import { signUp } from "../../services/api"
+import './styles.css';
+
 class SignUp extends Component {
 
     render() {
@@ -16,7 +16,6 @@ class SignUp extends Component {
         let maxY = new Date(year - 10, month, day)
         return (
             <div>
-                <h2>SignUp</h2>
                 <Formik
                     initialValues={{
                         firstName: '',
@@ -34,16 +33,11 @@ class SignUp extends Component {
                             .required('First Name is required'),
                         lastName: Yup
                             .string()
-                            .required('Nast Name is required'),
+                            .required('Last Name is required'),
                         email: Yup
                             .string()
                             .email()
                             .required('Email is required'),
-                        confirmEmail: Yup
-                            .string()
-                            .email()
-                            .oneOf([Yup.ref('email')], 'Email are not the same!')
-                            .required('Email confirm is required'),
                         birthday: Yup
                             .date()
                             .max(maxY)
@@ -73,7 +67,13 @@ class SignUp extends Component {
                             birthday,
                             mobileNr)
                             .then( response => {
-                                window.location.reload();
+                                const status = response.data.status;
+                                if (status === "OK"){
+                                    this.props.history.push( "/");
+                                }else if (status === "DUPLICATE_ENTITY"){
+                                    setSubmitting(false);
+                                    setStatus('User with that email already exists.');
+                                }
                             })
                             .catch( error => {
                                 setSubmitting(false);

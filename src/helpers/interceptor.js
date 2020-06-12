@@ -1,5 +1,4 @@
 import axios from 'axios'
-import * as routes from "./routes";
 
 function interceptor (){
 
@@ -25,13 +24,6 @@ function interceptor (){
         },
         (error) => {
 
-            // return error
-            // // token expired
-            // if (error.response.status === 401) {
-            //     localStorage.removeItem('JwtToken');
-            //     history.push("/signIn");
-            //     window.location.reload(true);
-            // }
             return Promise.reject(error)
         }
     )

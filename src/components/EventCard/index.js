@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import './styles.css'
-import { Card, Button, CardTitle, CardText, Form, FormGroup, Label, Input } from 'react-bootstrap';
-import { format, differenceInMilliseconds, parse } from 'date-fns'
+import { Button } from 'react-bootstrap';
+import { format, differenceInMilliseconds } from 'date-fns'
 import Timer from "react-compound-timer";
 
 export default class EventCard extends Component {
 
     render() {
-        console.log(this.props.event.partner.length)
+        console.log(this.props.event.partner.length);
         let initTime = 0;
         const dif = differenceInMilliseconds(new Date(`${this.props.event.experience}`), new Date());
         if (dif > 0) {
@@ -20,8 +20,6 @@ export default class EventCard extends Component {
         const exp = format(new Date(`${this.props.event.experience}`),"dd.MM.yyyy HH:mm").split(" ");
         const expDate = exp[0]
         const expTime = exp[1]
-        const userData = JSON.parse(localStorage.getItem("UserData")).id
-        const userExist = false;
         for(let i = 0; i < this.props.event.partner.length; i++){
             if( this.props.event.partner[i].id === JSON.parse(localStorage.getItem("UserData")).id ){
                 this.userExist = true
@@ -109,46 +107,6 @@ export default class EventCard extends Component {
                 </div>
             </div>
         </div>
-    );
+        );
     };
 }
-//
-// <Card className="eventFormInfo">
-//             <Card.Body>
-//                 <Card.Title>
-//                     Created by: {props.event.user.fullName}
-//                 </Card.Title>
-//                 <Card.Text>
-//                     <Timer
-//                         initialTime={ initTime }
-//                         direction="backward"
-//                         checkpoints={
-//                             [{
-//                                 time: 0,
-//                                 callback: () => {
-//                                     props.closeCard();
-//                                     props.reloadPins();
-//                                 },
-//                             }]}
-//                     >
-//                         {() => (
-//                             <React.Fragment>
-//                                 <b><Timer.Days /></b>days <b><Timer.Hours /></b>hours <b><Timer.Minutes /></b>minutes <b><Timer.Seconds /></b>sec
-//                             </React.Fragment>
-//                         )}
-//                     </Timer><br/>
-//                     Type: {props.event.type}<br/>
-//                     {/*{format(new Date(`${props.event.experience}`), "yyyy-MM-dd HH:mm")}<br/>*/}
-//                     Availability: {props.event.availability}/{props.event.availability}<br/>
-//                 </Card.Text>
-//                 <div className="bottom-buttons">
-//                     <Button className="float-left" variant="success" onClick={ () => { props.joinEvent(props.event.id) }}>Join</Button>
-//                     <Button className="float-right" variant="secondary" onClick={props.closeCard }>Close</Button>
-//                 </div>
-//             </Card.Body>
-//         </Card>
-//     );
-//     };
-// }
-
-// export default EventCard;

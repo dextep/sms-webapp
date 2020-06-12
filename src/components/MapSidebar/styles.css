@@ -24,3 +24,10 @@
 button {
     width: 75px;
 }
+
+textarea {
+    height: 100px;
+    resize: none;
+    appearance: none;
+    outline: none;
+}

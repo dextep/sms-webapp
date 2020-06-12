@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
 import './styles.css'
-import { Card, Button, ToastHeader, ButtonToolbar, InputGroup, ButtonGroup, FormControl, CardTitle, CardText, Form, FormGroup, Label, Input } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import Timer from "react-compound-timer";
 import {differenceInMilliseconds, format} from "date-fns";
-import {Marker, Tooltip} from "react-leaflet";
-import index from "../Navbar";
 
 export default class EventEditCard extends Component {
     createTable = () => {
@@ -17,10 +15,9 @@ export default class EventEditCard extends Component {
             }
         }
         return availability
-    }
+    };
 
     render() {
-
         let initTime = 0;
         const dif = differenceInMilliseconds(new Date(`${this.props.event.experience}`), new Date());
         if (dif > 0) {
@@ -41,7 +38,7 @@ export default class EventEditCard extends Component {
                             {expDate}<br/>
                             {expTime}
                         </p>
-                        <h5 style={{fontSize: "19px", margin: "30px 0px 0px 0px" }}>{this.props.event.type.type}</h5>
+                        <h5 style={{fontSize: "19px", margin: "30px 0px 0px 0px" }}>{this.props.event.type.icon+" "+this.props.event.type.type}</h5>
                         <p style={{fontSize: "15px", margin: "10px 0px 0px 0px" }}>You'r event is comming soon:</p>
                             <Timer
                                 initialTime={initTime}
@@ -93,14 +90,10 @@ export default class EventEditCard extends Component {
                                 {this.createTable().map( (partner, index) =>
                                     <li key={index}>
                                         <label>{partner.no}: {partner.user}</label>
-                                        {/*<button type="button" onClick={() => handleClick(item.id)}>*/}
-                                        {/*    Remove*/}
-                                        {/*</button>*/}
                                     </li>
                                 )}
                             </ul>
                             <div className="bottom-buttons">
-                                {/*<Button className="float-left" variant="success" onClick={props.closeCard}>Save</Button>*/}
                                 <Button variant="danger" onClick={() => {this.props.deleteEvent(this.props.event.id)}}>Delete</Button>
                                 <Button className="float-right" variant="secondary" onClick={ this.props.closeCard}>Close</Button>
                             </div>
@@ -110,54 +103,3 @@ export default class EventEditCard extends Component {
         );
     };
 }
-
-
-{/*<Card className="eventFormInfo">*/}
-{/*    <Card.Body>*/}
-{/*        <Card.Title>You'r event.</Card.Title>*/}
-{/*        <Card.Text style={{margin: "0px"}}>*/}
-{/*            <Timer*/}
-{/*                initialTime={initTime}*/}
-{/*                direction="backward"*/}
-{/*                checkpoints={*/}
-{/*                    [{*/}
-{/*                        time: 0,*/}
-{/*                        callback: () => {*/}
-{/*                            this.props.closeCard();*/}
-{/*                            this.props.reloadPins();*/}
-{/*                        },*/}
-{/*                    }]}*/}
-
-{/*            >*/}
-{/*                {() => (*/}
-{/*                    <React.Fragment>*/}
-{/*                        <b><Timer.Days /></b>days <b><Timer.Hours /></b>hours <b><Timer.Minutes /></b>minutes <b><Timer.Seconds /></b>sec*/}
-{/*                    </React.Fragment>*/}
-{/*                )}*/}
-{/*            </Timer><br/>*/}
-{/*            Type: {this.props.event.type}<br/>*/}
-{/*            /!*{format(new Date(`${props.event.experience}`), "yyyy-MM-dd HH:mm")}<br/>*!/*/}
-{/*            Availability:*/}
-
-
-{/*        </Card.Text>*/}
-{/*        <ul>*/}
-{/*            {this.createTable().map( (partner, index) =>*/}
-
-{/*                <li key={index}>*/}
-{/*                    <label>{partner.no} : {partner.user}</label>*/}
-{/*                    /!*<button type="button" onClick={() => handleClick(item.id)}>*!/*/}
-{/*                    /!*    Remove*!/*/}
-{/*                    /!*</button>*!/*/}
-{/*                </li>*/}
-{/*            )}*/}
-{/*        </ul>*/}
-{/*        /!*<Button className="float-left" variant="success" onClick={props.closeCard}>Save</Button>*!/*/}
-{/*        <Button variant="danger" onClick={() => {*/}
-{/*            this.props.deleteEvent(this.props.event.id)*/}
-{/*        }}>Delete</Button>*/}
-{/*        <Button className="float-right" variant="secondary" onClick={ this.props.closeCard}>Close</Button>*/}
-{/*    </Card.Body>*/}
-{/*</Card>*/}
-
-// export default EventEditCard;

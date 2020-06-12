@@ -1,11 +1,8 @@
-import {Link} from "react-router-dom";
 import './styles.css';
 import React, { Component } from "react";
-import axios from "axios";
 import { withRouter } from 'react-router-dom';
-import { Navbar, NavItem, NavDropdown, MenuItem, Nav } from 'react-bootstrap';
+import { Navbar, NavDropdown } from 'react-bootstrap';
 import {setUserData} from "../../services/api";
-import * as routes from "../../helpers/routes";
 
 class Navigationbar extends Component {
     constructor() {
