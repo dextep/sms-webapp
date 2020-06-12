@@ -1,4 +1,4 @@
-const serverUrl = 'http://localhost:8080'
+export const serverUrl = 'http://localhost:8080'
 
 export const auth = `${serverUrl}/api/auth`;
 export const signUp = `${serverUrl}/api/v1/user/signup`;

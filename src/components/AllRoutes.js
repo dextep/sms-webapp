@@ -14,8 +14,8 @@ export class AllRoutes extends Component {
 
     render() {
         const LoginContainer = () => (
-            <div className="header">
-                <div className="headerContainer">
+            <div className="headerContainer">
+                <div className="page-wrap">
                     <Tabs defaultActiveKey="SignIn" className={"nav-justified"}>
                         <Tab eventKey="SignIn"  title="Sign In">
                             <Route path="/signIn" component={SignIn}/>
