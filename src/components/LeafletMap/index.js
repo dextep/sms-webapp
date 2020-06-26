@@ -84,9 +84,9 @@ export class LeafletMap extends Component {
                 events.map(event => {
                     console.log(event)
                     if(event.user.id === this.state.user.id){
-                        userEvents.push(event)
+                        return userEvents.push(event)
                     }else{
-                        anotherEvents.push(event)
+                        return anotherEvents.push(event)
                     }
                 })
                 this.setState({
@@ -278,7 +278,6 @@ export class LeafletMap extends Component {
                         <MapSidebar
                             location={this.state.location}
                             disablePin={this.disablePin}
-                            closeCard={this.closeCards}
                             closeCard={this.closeCards}
                             eventTypes={this.getEventTypes}
                         />

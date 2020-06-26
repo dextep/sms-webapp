@@ -44,7 +44,7 @@ class Navigationbar extends Component {
     render() {
         return (
             <Navbar bg="dark" variant="dark" expand="lg" >
-                <Navbar.Brand>Sport meeting system 🏃🏼</Navbar.Brand>
+                <Navbar.Brand>Sport meeting system <span role="img" aria-label="running">🏃🏼</span></Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
                     <NavDropdown alignRight id="nav-dropdown" title={'Signed in as: '+this.state.firstName+' '+this.state.lastName}>

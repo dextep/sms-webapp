@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './styles.css'
-import { format, isAfter, parse } from 'date-fns'
+import { format } from 'date-fns'
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from "yup";
 import axios from "axios";
@@ -42,7 +42,7 @@ export default class MapSidebar extends Component {
         let option = []
         getEventTypes().then( eventTypes =>
             eventTypes.map( (eventType,index) => {
-                option.push(<option key={index} value={eventType.id}>{eventType.type}</option>)
+                return option.push(<option key={index} value={eventType.id}>{eventType.type}</option>)
             })
         )
         return option
